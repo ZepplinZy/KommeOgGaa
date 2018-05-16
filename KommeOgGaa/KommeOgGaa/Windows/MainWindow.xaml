@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:KommeOgGaa"
         mc:Ignorable="d">
     <Grid>
-        <Controls:CameraControl FrameNumber="30"/>
+        <Controls:CameraControl FrameNumber="30" x:Name="camera"/>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Right" Content="Test" Click="Button_Click"/>
     </Grid>
 </Window>

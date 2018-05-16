@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:KommeOgGaa"
              StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Includes/Converters.xaml"/>
     </Application.Resources>
 </Application>

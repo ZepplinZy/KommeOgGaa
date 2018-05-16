@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WebCam_Capture;
 
@@ -37,52 +39,52 @@ namespace KommeOgGaa.Controls
             DependencyProperty.Register("FrameNumber", typeof(int), typeof(CameraControl), new PropertyMetadata(30));
 
 
-
+        private System.Drawing.Image imagelive;
         private WebCamCapture webcam;
         public CameraControl()
         {
             InitializeComponent();
 
-            Application.Current.Exit += (o, e) => { Stop(); };
+           // Application.Current.Exit += (o, e) => { Stop(); };
         }
 
         public void Init()
         {
-            try
-            {
+            //try
+            //{
 
-            webcam = new WebCamCapture
-            {
-                FrameNumber = ulong.Parse(FrameNumber.ToString()),
-                TimeToCapture_milliseconds = FrameNumber
-            };
+            //webcam = new WebCamCapture
+            //{
+            //    FrameNumber = ulong.Parse(FrameNumber.ToString()),
+            //    TimeToCapture_milliseconds = FrameNumber
+            //};
 
-            webcam.ImageCaptured += (o,e) => { viewImage.Source = ConvertoBitmapImage(e.WebCamImage); };
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
-            }
+            //webcam.ImageCaptured += (o,e) => { viewImage.Source = ConvertoBitmapImage(e.WebCamImage); imagelive = e.WebCamImage; };
+            //}
+            //catch (Exception ex)
+            //{
+            //    System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
+            //}
         }
         
 
         public void Start()
         {
             //webcam.TimeToCapture_milliseconds = FrameNumber;
-            webcam.Start(0);
+            //webcam.Start(0);
         }
         public void Stop()
         {
-            webcam.Stop();
+            //webcam.Stop();
         }
+        
 
-
-        public void StartRecord() { }
-        public void StopRecord() { }
 
         public void TakePicture()
         {
+            imagelive.Save(@"C:\Users\shsk\Pictures\Img002.jpeg");
         }
+
 
 
         private static BitmapImage ConvertoBitmapImage(System.Drawing.Image img)
@@ -107,7 +109,12 @@ namespace KommeOgGaa.Controls
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            Stop();
+            //Stop();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
