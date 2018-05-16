@@ -4,7 +4,17 @@
              xmlns:local="clr-namespace:KommeOgGaa"
              StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
-        <SolidColorBrush x:Key="MainColor" Color="#3871b7"/>
-        <ResourceDictionary Source="Includes/Converters.xaml"/>
+
+
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Includes/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <SolidColorBrush x:Key="MainColor" Color="#3871b7"/>
+
+        </ResourceDictionary>
     </Application.Resources>
+    
+    
 </Application>

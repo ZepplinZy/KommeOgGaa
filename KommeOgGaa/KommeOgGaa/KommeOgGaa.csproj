@@ -131,5 +131,8 @@
   <ItemGroup>
     <Resource Include="Picrues\car1.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\WebCam_Capture.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
