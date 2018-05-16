@@ -39,7 +39,7 @@ namespace KommeOgGaa
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string[] images = System.IO.Directory.GetFiles(@"C:\Users\kide\Pictures\Billeder til dansk");
+            string[] images = { };// System.IO.Directory.GetFiles(@"C:\Users\kide\Pictures\Billeder til dansk");
 
             Random r = new Random();
             foreach (var path in images)

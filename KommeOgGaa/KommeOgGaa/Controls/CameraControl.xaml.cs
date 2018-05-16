@@ -112,7 +112,7 @@ namespace KommeOgGaa.Controls
             //Stop();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_TakePicture_Click(object sender, RoutedEventArgs e)
         {
 
         }

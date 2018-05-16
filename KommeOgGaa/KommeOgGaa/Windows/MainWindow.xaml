@@ -8,7 +8,7 @@
         Loaded="Window_Loaded"
         Title="MainWindow" Height="670" Width="1000">
     <Window.Resources>
-        <ImageBrush x:Key="TakePictureImage" ImageSource="Picrues/CameraIMG.svg.png" Stretch="UniformToFill" />
+        <ImageBrush x:Key="TakePictureImage" ImageSource="/KommeOgGaa;component/Picrues/CameraIMG.svg.png" Stretch="UniformToFill" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>

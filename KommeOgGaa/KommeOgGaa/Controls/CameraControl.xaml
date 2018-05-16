@@ -19,7 +19,7 @@
 
         <Button VerticalAlignment="Stretch" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                 Foreground="Gray" Background="White" Grid.Row="1"
-                Margin="10" Click="Button_TakePictuer_Click">
+                Margin="10" Click="Button_TakePicture_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Canvas>
