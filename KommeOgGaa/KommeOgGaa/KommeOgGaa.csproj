@@ -68,6 +68,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -92,6 +93,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Picrues\CameraIMG.svg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Picrues\car4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Picrues\car3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Picrues\car2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Picrues\car1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

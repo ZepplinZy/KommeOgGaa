@@ -5,8 +5,135 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KommeOgGaa"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Loaded="Window_Loaded"
+        Title="MainWindow" Height="670" Width="1000">
+    <Window.Resources>
+        <ImageBrush x:Key="TakePictureImage" ImageSource="Picrues/CameraIMG.svg.png" Stretch="UniformToFill" />
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         
+        
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource MainColor}">
+            <Button Grid.Column="1" Margin="0,7,29,10" Background="{StaticResource TakePictureImage}" HorizontalAlignment="Right" Width="72"/>
+
+            <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0" Margin="64 0 0 0" Text="LOGO"/>
+        </Grid>
+        
+        <Grid Grid.Row="1" Grid.Column="0">
+
+            <StackPanel Grid.Column="0" Background="{StaticResource MainColor}">
+                <Button Margin="10" Content="B1"/>
+
+                <Button Margin="10" Content="B2"/>
+
+                <Button Margin="10" Content="B3"/>
+
+                <Button Margin="10" Content="B4"/>
+
+                <Button Margin="10" Content="Save location" Click="Button_Click"/>
+            </StackPanel>
+
+
+        </Grid>
+
+        <Grid x:Name="grid_Content" Grid.Column="1" Grid.Row="1">
+            
+            <ListView x:Name="PictureList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Visibility="Collapsed"
+                      MouseUp="PictureList_MouseUp" SelectionChanged="PictureList_SelectionChanged">
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Image Source="{Binding PicturesLocation}" Width="100"></Image>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+            </ListView>
+            <Grid x:Name="imageGrid" Visibility="Collapsed">
+                <Button Content="Back" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Width="150" Margin="10" Click="Button_BackToGallery_Click"/>
+                <Grid HorizontalAlignment="Center" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image x:Name="image_Selected"  Height="500" Width="500" Grid.Column="0" Source="{Binding PicturesLocation}" VerticalAlignment="Top" Grid.Row="0" Grid.RowSpan="2"/>
+
+                    <TextBlock FontSize="18" HorizontalAlignment="Center" Margin="0 10 0 0" Grid.Column="1" Grid.Row="0">
+                            <Run Text="Dato: " FontWeight="Bold"/>
+                            <Run x:Name="text_Selected_Date" Text="{Binding PictureTaken}"/>
+                    </TextBlock>
+                    <Button Grid.Column="1" Grid.Row="1" Click="Button_CheckOut_Click" Content="TJEK UD" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="0 15" Width="200" FontSize="18" FontWeight="Bold" Background="White" Margin="0 20 0 10"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="GalleryGrid" Visibility="Visible">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Dato 16-05-2018"/>
+
+                <ListView x:Name="Gallery" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                          MouseUp="PictureList_MouseUp" SelectionChanged="PictureList_SelectionChanged" Grid.Row="1">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding PicturesLocation}" Width="100" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"></Image>
+                                    <TextBlock Text="10:20" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"/>
+                                    <Image Source="{Binding PicturesLocation}" Width="100" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"></Image>
+                                    <TextBlock Text="15:25" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                </ListView>
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource MainColor}">
+            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Padding="0 0 5 0" Foreground="white" TextDecorations="underline">Lavet af Simon Skov og Kim Danborg</TextBlock>
+        </Grid>
     </Grid>
 </Window>
