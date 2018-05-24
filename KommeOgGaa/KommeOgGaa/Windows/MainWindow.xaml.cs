@@ -54,7 +54,7 @@ namespace KommeOgGaa
             System.Diagnostics.Debug.WriteLine("Button!");
         }
 
-        private void Button_CheckOut_Click(object sender, RoutedEventArgs e) //Tjek ud kanp
+        private void Button_CheckOut_Click(object sender, RoutedEventArgs e) //Tjek ud knap
         {
             Person selected = (Person)PictureList.SelectedItem;
             imageList.Remove(selected);
