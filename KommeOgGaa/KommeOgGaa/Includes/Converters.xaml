@@ -8,6 +8,10 @@
     <Image x:Key="MenuCatalogWhite" Source="/KommeOgGaa;component/Picrues/Book_White.png"/>
     <Image x:Key="MenuSettingsBlack" Source="/KommeOgGaa;component/Picrues/Settings.png"/>
     <Image x:Key="MenuSettingsWhite" Source="/KommeOgGaa;component/Picrues/Settings_White.png"/>
+    <Image x:Key="MenuLogInBlack" Source="/KommeOgGaa;component/Picrues/LogIn.png"/>
+    <Image x:Key="MenuLogInWhite" Source="/KommeOgGaa;component/Picrues/LogIn_White.png"/>
+    <Image x:Key="MenuLogOut" Source="/KommeOgGaa;component/Picrues/LogOut_White.png"/>
+    
     
     
     <Converters:RingButtonConverter x:Key="CameraRingButtonConverter" LevelSpacePercentage="0.15"/>
@@ -16,6 +20,7 @@
     <Converters:BoolToImageConverter x:Key="MenuHomeImageConverter" FalseValue="{StaticResource MenuHomeWhite}" TrueValue="{StaticResource MenuHomeBlack}" />
     <Converters:BoolToImageConverter x:Key="MenuCatalogImageConverter" FalseValue="{StaticResource MenuCatalogWhite}" TrueValue="{StaticResource MenuCatalogBlack}" />
     <Converters:BoolToImageConverter x:Key="MenuSettingsImageConverter" FalseValue="{StaticResource MenuSettingsWhite}" TrueValue="{StaticResource MenuSettingsBlack}" />
+    <Converters:BoolToImageConverter x:Key="MenuLogInImageConverter" FalseValue="{StaticResource MenuLogInWhite}" TrueValue="{StaticResource MenuLogInBlack}" />
     <Converters:BoolToBrushConverter x:Key="MenuBackgroundConverter" FalseValue="Transparent" TrueValue="White"/>
     <Converters:BoolToVisibilityConverter x:Key="BoolToVisibillityConverter" FalseValue="Collapsed" TrueValue="Visible"/>
 

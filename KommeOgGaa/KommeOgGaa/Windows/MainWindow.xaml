@@ -33,8 +33,6 @@
 
 
 
-
-
         <StackPanel x:Name="grid_Content" Grid.Column="1" Grid.Row="1">
 
             <Grid Visibility="{Binding ElementName=MenuHomeBtn, Path=IsChecked, Converter={StaticResource BoolToVisibillityConverter}}">
@@ -146,11 +144,21 @@
         </StackPanel>
 
         <!-- Menu -->
-        <StackPanel Grid.Row="1"  Grid.Column="0" Background="{StaticResource MainColorDark}">
-            <RadioButton x:Name="MenuHomeBtn" Cursor="Hand" Padding="5" IsChecked="True" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuHomeImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
-            <RadioButton x:Name="MenuCatalogBtn" Cursor="Hand" Padding="5" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuCatalogImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
-            <RadioButton x:Name="MenuSettingsBtn" Cursor="Hand" Padding="5" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuSettingsImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
-        </StackPanel>
+        <Grid Grid.Row="1"  Grid.Column="0" Background="{StaticResource MainColorDark}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            
+            <RadioButton x:Name="MenuHomeBtn" Grid.Row="0" Cursor="Hand" Padding="5" IsChecked="false" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuHomeImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
+            <RadioButton x:Name="MenuCatalogBtn" Grid.Row="1" Cursor="Hand" Padding="5" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuCatalogImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
+            <RadioButton x:Name="MenuSettingsBtn" Grid.Row="2" Cursor="Hand" Padding="5" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuSettingsImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
+            <RadioButton x:Name="MenuLogInBtn" Grid.Row="4" Cursor="Hand" Padding="5" IsChecked="True" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuLogInImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
+
+        </Grid>
         
         
         <!-- Settings -->
@@ -237,8 +245,14 @@
 
 
         </Grid>
-        
 
+        <!-- Admin Login -->
+        <StackPanel Grid.Column="1" Grid.Row="1"  Visibility="{Binding ElementName=MenuLogInBtn, Converter={StaticResource BoolToVisibillityConverter}, Path=IsChecked}">
+            <TextBlock Text="Admin Login"/>
+            <Controls:PlaceholderBox Placeholder="Brugernavn"/>
+            <PasswordBox Style="{StaticResource PasswordBox_Style_Default}" Tag="Kodeord"/>
+
+        </StackPanel>
 
         <!-- Lavet af Kim og Simon -->
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource MainColorDark}">
