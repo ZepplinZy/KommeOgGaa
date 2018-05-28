@@ -15,7 +15,7 @@ namespace KommeOgGaa.Controls
     public partial class CameraControl : UserControl
     {
 
-
+        private bool hasBeenInitialize = false;
 
         public string Folder
         {
@@ -50,32 +50,36 @@ namespace KommeOgGaa.Controls
 
         public void Init()
         {
-            //try
-            //{
+            try
+            {
 
-            //webcam = new WebCamCapture
-            //{
-            //    FrameNumber = ulong.Parse(FrameNumber.ToString()),
-            //    TimeToCapture_milliseconds = FrameNumber
-            //};
+                webcam = new WebCamCapture
+                {
+                    FrameNumber = ulong.Parse(FrameNumber.ToString()),
+                    TimeToCapture_milliseconds = FrameNumber
+                };
 
-            //webcam.ImageCaptured += (o,e) => { viewImage.Source = ConvertoBitmapImage(e.WebCamImage); imagelive = e.WebCamImage; };
-            //}
-            //catch (Exception ex)
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
-            //}
+                webcam.ImageCaptured += (o, e) => { viewImage.Source = ConvertoBitmapImage(e.WebCamImage); imagelive = e.WebCamImage; };
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
+            }
         }
         
 
         public void Start()
         {
-            //webcam.TimeToCapture_milliseconds = FrameNumber;
-            //webcam.Start(0);
+            if (!hasBeenInitialize)
+            {
+                Init();
+            }
+            webcam.TimeToCapture_milliseconds = FrameNumber;
+            webcam.Start(0);
         }
         public void Stop()
         {
-            //webcam.Stop();
+           webcam.Stop();
         }
         
 
@@ -102,9 +106,7 @@ namespace KommeOgGaa.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
-            Init();
-            Start();
+            
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KommeOgGaa"
+        xmlns:Controls="clr-namespace:KommeOgGaa.Controls"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Title="MainWindow" Height="670" Width="1000">
@@ -25,8 +26,11 @@
 
 
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource MainColor}">
-            <Button Grid.Column="1" Margin="0,7,29,10" Background="{StaticResource TakePictureImage}" HorizontalAlignment="Right" Width="72"/>
+            <CheckBox x:Name="btn_Camera" Grid.Column="1" Margin="0,7,29,10" Background="{StaticResource TakePictureImage}" HorizontalAlignment="Right" Width="72" Click="Button_Click_1"/>
 
+            <Popup IsOpen="{Binding ElementName=btn_Camera, Path=IsChecked}" PlacementTarget="{Binding ElementName=btn_Camera}" Placement="Left">
+                <Controls:CameraControl Width="800" Height="600"/>
+            </Popup>
             <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0" Margin="64 0 0 0" Text="Komme &amp; Gå"/>
 
             <Border BorderBrush="White" BorderThickness="5" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="250 30 0 0">
@@ -106,9 +110,8 @@
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
+                
                 <TextBlock Text="Dato 16-05-2018"/>
-
                 <ListView x:Name="Gallery" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                           MouseUp="PictureList_MouseUp" SelectionChanged="PictureList_SelectionChanged" Grid.Row="1">
 
