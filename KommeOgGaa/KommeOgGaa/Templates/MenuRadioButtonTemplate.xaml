@@ -2,9 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:KommeOgGaa.Templates">
 
-    <ControlTemplate TargetType="RadioButton" x:Key="MenuRadioButtonTemplate">
+    <ControlTemplate TargetType="ToggleButton" x:Key="MenuRadioButtonTemplate">
         <Grid>
-            <Label Content="{TemplateBinding Content}" Background="{TemplateBinding Background}" Margin="0" Padding="{TemplateBinding Padding}" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Content="{TemplateBinding Content}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}"
+                   Margin="0" Padding="{TemplateBinding Padding}" BorderThickness="0" 
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Grid x:Name="overlay" Background="Black" Opacity="0"/>
         </Grid>
 

@@ -95,6 +95,7 @@ namespace KommeOgGaa
             
 
         }
-        
+
+        private void Button_CloseCamera_Click(object sender, RoutedEventArgs e) => CameraBtn.IsChecked = false;
     }
 }

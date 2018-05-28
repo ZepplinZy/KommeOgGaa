@@ -15,6 +15,7 @@ namespace KommeOgGaa.Scripts
 
         void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
+
             if ((sender as PasswordBox).Password == "")
                 (sender as PasswordBox).Tag = "Show";
             else

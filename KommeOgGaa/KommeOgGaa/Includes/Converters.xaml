@@ -22,6 +22,7 @@
     <Converters:BoolToImageConverter x:Key="MenuSettingsImageConverter" FalseValue="{StaticResource MenuSettingsWhite}" TrueValue="{StaticResource MenuSettingsBlack}" />
     <Converters:BoolToImageConverter x:Key="MenuLogInImageConverter" FalseValue="{StaticResource MenuLogInWhite}" TrueValue="{StaticResource MenuLogInBlack}" />
     <Converters:BoolToBrushConverter x:Key="MenuBackgroundConverter" FalseValue="Transparent" TrueValue="White"/>
+    <Converters:BoolToBrushConverter x:Key="MenuForegroundConverter" FalseValue="White" TrueValue="Black"/>
     <Converters:BoolToVisibilityConverter x:Key="BoolToVisibillityConverter" FalseValue="Collapsed" TrueValue="Visible"/>
 
     <Converters:ValueToThicknessConverter x:Key="ValueToThicknessConvert"/>
