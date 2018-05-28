@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="MainColor" Color="#3871b7"/>
+    <SolidColorBrush x:Key="MainColorDark" Color="#2a5993"/>
+
+
+
+    <SolidColorBrush x:Key="Color_Background_Program"           Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Color_Background_Box"               Color="#f1f1f5"/>
+    <SolidColorBrush x:Key="Color_Background_InputBox"          Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Color_Background_Placeholder"       Color="LightGray"/>
+    <SolidColorBrush x:Key="Color_Background_Button_Blue"       Color="#3385ff"/>
+    <SolidColorBrush x:Key="Color_Background_Button_LightBlue"  Color="LightBlue"/>
+    <SolidColorBrush x:Key="Color_Background_Button_LightGreen" Color="LightGreen"/>
+    <SolidColorBrush x:Key="Color_Background_Button_LightGray"  Color="LightGray"/>
+    <SolidColorBrush x:Key="Color_Background_Button_LightRed"  Color="#ff3f3f"/>
+
+    <SolidColorBrush x:Key="Color_Border_Box"                   Color="#3385ff"/>
+    <SolidColorBrush x:Key="Color_Border_InputBox"              Color="#7F7F7F"/>
+
+
+
+    <SolidColorBrush x:Key="Color_Foreground_Program"           Color="#262626"/>
+    <SolidColorBrush x:Key="Color_Foreground_Placeholder"       Color="#9e9e9e"/>
+    <SolidColorBrush x:Key="Color_Foreground_Light_1"           Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="Color_Foreground_Dark_1"            Color="#4c4c4c"/>
+    <SolidColorBrush x:Key="Color_Foreground_Dark_2"            Color="#262626"/>
+    <SolidColorBrush x:Key="Color_Foreground_Dark_3"            Color="#000000"/>
+</ResourceDictionary>

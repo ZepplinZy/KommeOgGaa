@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:KommeOgGaa.Templates">
+
+    <ControlTemplate TargetType="RadioButton" x:Key="MenuRadioButtonTemplate">
+        <Grid>
+            <Label Content="{TemplateBinding Content}" Background="{TemplateBinding Background}" Margin="0" Padding="{TemplateBinding Padding}" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Grid x:Name="overlay" Background="Black" Opacity="0"/>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="overlay" Property="Opacity" Value="0.2"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+</ResourceDictionary>

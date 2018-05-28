@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:KommeOgGaa.Controls"
         xmlns:local="clr-namespace:KommeOgGaa"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
@@ -30,94 +31,20 @@
             <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0" Margin="64 0 0 0" Text="LOGO"/>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0">
-
-            <StackPanel Grid.Column="0" Background="{StaticResource MainColor}">
-                <Button Margin="10" Content="B1"/>
-
-                <Button Margin="10" Content="B2"/>
-
-                <Button Margin="10" Content="B3"/>
-
-                <Button Margin="10" Content="B4"/>
-
-                <Button Margin="10" Content="Save location" Click="Button_Click"/>
-            </StackPanel>
 
 
-        </Grid>
 
-        <Grid x:Name="grid_Content" Grid.Column="1" Grid.Row="1">
 
-            <ListView x:Name="PictureList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Visibility="Collapsed"
+        <StackPanel x:Name="grid_Content" Grid.Column="1" Grid.Row="1">
+
+            <Grid Visibility="{Binding ElementName=MenuHomeBtn, Path=IsChecked, Converter={StaticResource BoolToVisibillityConverter}}">
+                <ListView x:Name="PictureList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       MouseUp="PictureList_MouseUp" SelectionChanged="PictureList_SelectionChanged">
-
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <Image Source="{Binding PicturesLocation}" Width="100"></Image>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-
-            </ListView>
-            <Grid x:Name="imageGrid" Visibility="Collapsed">
-                <Button Content="Back" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Width="150" Margin="10" Click="Button_BackToGallery_Click"/>
-                <Grid HorizontalAlignment="Center" >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="500"/>
-                        <ColumnDefinition Width="250"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Image x:Name="image_Selected"  Height="500" Width="500" Grid.Column="0" Source="{Binding PicturesLocation}" VerticalAlignment="Top" Grid.Row="0" Grid.RowSpan="2"/>
-
-                    <TextBlock FontSize="18" HorizontalAlignment="Center" Margin="0 10 0 0" Grid.Column="1" Grid.Row="0">
-                            <Run Text="Dato: " FontWeight="Bold"/>
-                            <Run x:Name="text_Selected_Date" Text="{Binding PictureTaken}"/>
-                    </TextBlock>
-                    <Button Grid.Column="1" Grid.Row="1" Click="Button_CheckOut_Click" Content="TJEK UD" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="0 15" Width="200" FontSize="18" FontWeight="Bold" Background="White" Margin="0 20 0 10"/>
-                </Grid>
-            </Grid>
-            <Grid x:Name="GalleryGrid" Visibility="Visible">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Text="Dato 16-05-2018"/>
-
-                <ListView x:Name="Gallery" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                          MouseUp="PictureList_MouseUp" SelectionChanged="PictureList_SelectionChanged" Grid.Row="1">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="100"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="40"/>
-                                        <RowDefinition Height="40"/>
-                                    </Grid.RowDefinitions>
-                                    <Image Source="{Binding PicturesLocation}" Width="100" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"></Image>
-                                    <TextBlock Text="10:20" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"/>
-                                    <Image Source="{Binding PicturesLocation}" Width="100" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"></Image>
-                                    <TextBlock Text="15:25" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left"/>
-                                </Grid>
+                            <StackPanel>
+                                <Image Source="{Binding PicturesLocation}" Width="100"></Image>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -129,10 +56,192 @@
                     </ListView.ItemsPanel>
 
                 </ListView>
+
+
+                <Grid x:Name="imageGrid" Visibility="Collapsed">
+                    <Button Content="Back" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Width="150" Margin="10" Click="Button_BackToGallery_Click"/>
+                    <Grid HorizontalAlignment="Center" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image x:Name="image_Selected"  Height="500" Width="500" Grid.Column="0" Source="{Binding PicturesLocation}" VerticalAlignment="Top" Grid.Row="0" Grid.RowSpan="2"/>
+
+                        <TextBlock FontSize="18" HorizontalAlignment="Center" Margin="0 10 0 0" Grid.Column="1" Grid.Row="0">
+                            <Run Text="Dato: " FontWeight="Bold"/>
+                            <Run x:Name="text_Selected_Date" Text="{Binding PictureTaken}"/>
+                        </TextBlock>
+                        <Button Grid.Column="1" Grid.Row="1" Click="Button_CheckOut_Click" Content="TJEK UD" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="0 15" Width="200" FontSize="18" FontWeight="Bold" Background="White" Margin="0 20 0 10"/>
+                    </Grid>
+                </Grid>
+
             </Grid>
 
+
+            <ListView x:Name="Gallery" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Visibility="{Binding ElementName=MenuCatalogBtn, Path=IsChecked, Converter={StaticResource BoolToVisibillityConverter}}" BorderThickness="0"
+                                MouseUp="PictureList_MouseUp" SelectionChanged="PictureList_SelectionChanged" >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=Name, Converter={StaticResource TicksDateConverter}}" FontSize="20" FontWeight="Bold" Foreground="Gray" Margin="5 15 0 0"/>
+                                    <Separator/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                           
+                                <Border BorderThickness="1" BorderBrush="#FF3E70DC" CornerRadius="2 0 0 0">
+                                    <StackPanel>
+                                    <Label Content="Tjek Ind" Background="#FF3E70DC" Foreground="White" FontWeight="Bold" HorizontalContentAlignment="Center" BorderThickness="0 0 0 1" BorderBrush="#FF3E70DC"/>
+                                        <Image Source="{Binding PicturesLocation}" Height="100" Width="100" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" />
+                                    <Label Content="{Binding Time}" Padding="2" Margin="0" FontSize="12" Foreground="Gray" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="#FF3E70DC"/>
+                                    </StackPanel>
+                                </Border>
+                            <Border BorderThickness="0 1 1 1" BorderBrush="#FF3E70DC" CornerRadius="0 2 0 0">
+                                <StackPanel>
+                                    <Label Content="Tjek Ud" Background="#FF3E70DC" Foreground="White" FontWeight="Bold" HorizontalContentAlignment="Center" BorderThickness="0 0 0 1" BorderBrush="#FF3E70DC"/>
+                                    <Image Source="{Binding Relation.PicturesLocation}" Height="100" Width="100" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" />
+                                    <Label Content="{Binding Relation.Time}" Padding="2" Margin="0" FontSize="12" Foreground="Gray" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="#FF3E70DC"/>
+                                </StackPanel>
+                            </Border>
+
+                                
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+            </ListView>
+
+
+        </StackPanel>
+
+        <!-- Menu -->
+        <StackPanel Grid.Row="1"  Grid.Column="0" Background="{StaticResource MainColorDark}">
+            <RadioButton x:Name="MenuHomeBtn" Cursor="Hand" Padding="5" IsChecked="True" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuHomeImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
+            <RadioButton x:Name="MenuCatalogBtn" Cursor="Hand" Padding="5" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuCatalogImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
+            <RadioButton x:Name="MenuSettingsBtn" Cursor="Hand" Padding="5" Template="{StaticResource MenuRadioButtonTemplate}" Content="{Binding Path=IsChecked, Converter={StaticResource MenuSettingsImageConverter}, RelativeSource={RelativeSource Self}}" Background="{Binding Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}, RelativeSource={RelativeSource Self}}" Height="50" BorderThickness="0" Margin="0"/>
+        </StackPanel>
+        
+        
+        <!-- Settings -->
+        <Grid Grid.Row="1" Grid.Column="1" Visibility="{Binding ElementName=MenuSettingsBtn, Converter={StaticResource BoolToVisibillityConverter}, Path=IsChecked}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Check In -->
+            <StackPanel Grid.Column="1" Grid.Row="1" >
+                <TextBlock Text="senest tjek ind" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Text="Timer: " VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                    <TextBlock Text="Minutter: " VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+
+                    <Slider x:Name="SliderCheckInHours" Style="{StaticResource Slider_Style_Default}" Maximum="23" Minimum="0" Value="23" Margin="0 0 5 0" Grid.Row="0" Grid.Column="1"/>
+                    <Slider x:Name="SliderCheckInMin" Style="{StaticResource Slider_Style_Default}" Maximum="59" Minimum="0" Value="23" Margin="0 0 5 0" Grid.Row="1" Grid.Column="1"/>
+
+                    <Controls:PlaceholderBox Text="{Binding ElementName=SliderCheckInHours, Path=Value}" Width="38" Grid.Row="0" Grid.Column="2"/>
+                    <Controls:PlaceholderBox Text="{Binding ElementName=SliderCheckInMin, Path=Value}" Width="38" Grid.Row="1" Grid.Column="2"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+
+                    
+                    
+                </StackPanel>
+            </StackPanel>
+
+
+            <!-- Check Ud -->
+            <StackPanel Grid.Column="1" Grid.Row="2" >
+                <TextBlock Text="senest tjek ud" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Timer: " VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                    <TextBlock Text="Minutter: " VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+
+                    <Slider x:Name="SliderCheckOutHours" Style="{StaticResource Slider_Style_Default}" Maximum="23" Minimum="0" Value="23" Margin="0 0 5 0" Grid.Row="0" Grid.Column="1"/>
+                    <Slider x:Name="SliderCheckOutMin" Style="{StaticResource Slider_Style_Default}" Maximum="59" Minimum="0" Value="23" Margin="0 0 5 0" Grid.Row="1" Grid.Column="1"/>
+
+                    <Controls:PlaceholderBox Text="{Binding ElementName=SliderCheckOutHours, Path=Value}" Width="38" Grid.Row="0" Grid.Column="2"/>
+                    <Controls:PlaceholderBox Text="{Binding ElementName=SliderCheckOutMin, Path=Value}" Width="38" Grid.Row="1" Grid.Column="2"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+
+
+
+                </StackPanel>
+            </StackPanel>
+
+
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource MainColor}">
+        
+
+
+        <!-- Lavet af Kim og Simon -->
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource MainColorDark}">
             <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Padding="0 0 5 0" Foreground="white" TextDecorations="underline">Lavet af Simon Skov og Kim Danborg</TextBlock>
         </Grid>
     </Grid>

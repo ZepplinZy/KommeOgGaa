@@ -33,19 +33,24 @@ namespace KommeOgGaa
             InitializeComponent();
             PictureList.ItemsSource = imageList;
             Gallery.ItemsSource = imageList;
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(Gallery.ItemsSource);
+            view.SortDescriptions.Add(new System.ComponentModel.SortDescription("Date", System.ComponentModel.ListSortDirection.Ascending));
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Date");
+            view.GroupDescriptions.Add(groupDescription);
+
+            
         }
 
         
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string[] images = { };// System.IO.Directory.GetFiles(@"C:\Users\kide\Pictures\Billeder til dansk");
-
-            Random r = new Random();
-            foreach (var path in images)
+            foreach (var item in Person.GetAllCheckInPersons())
             {
-                imageList.Add(new Person() { PicturesLocation = path, PictureTaken = "20/05/2018 12:03:" + r.Next(0,59) });
+                imageList.Add(item);
             }
+            
         }
 
 
