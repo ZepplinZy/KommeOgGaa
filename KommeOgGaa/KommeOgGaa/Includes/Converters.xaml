@@ -1,5 +1,24 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Converters="clr-namespace:KommeOgGaa.Converters">
+    
+    <Image x:Key="MenuHomeBlack"  Source="/KommeOgGaa;component/Picrues/Home.png"/>
+    <Image x:Key="MenuHomeWhite"  Source="/KommeOgGaa;component/Picrues/Home_White.png"/>
+    <Image x:Key="MenuCatalogBlack" Source="/KommeOgGaa;component/Picrues/Book.png"/>
+    <Image x:Key="MenuCatalogWhite" Source="/KommeOgGaa;component/Picrues/Book_White.png"/>
+    <Image x:Key="MenuSettingsBlack" Source="/KommeOgGaa;component/Picrues/Settings.png"/>
+    <Image x:Key="MenuSettingsWhite" Source="/KommeOgGaa;component/Picrues/Settings_White.png"/>
+    
+    
     <Converters:RingButtonConverter x:Key="CameraRingButtonConverter" LevelSpacePercentage="0.15"/>
+    <Converters:TicksTimeConverter x:Key="TicksDateConverter" />
+
+    <Converters:BoolToImageConverter x:Key="MenuHomeImageConverter" FalseValue="{StaticResource MenuHomeWhite}" TrueValue="{StaticResource MenuHomeBlack}" />
+    <Converters:BoolToImageConverter x:Key="MenuCatalogImageConverter" FalseValue="{StaticResource MenuCatalogWhite}" TrueValue="{StaticResource MenuCatalogBlack}" />
+    <Converters:BoolToImageConverter x:Key="MenuSettingsImageConverter" FalseValue="{StaticResource MenuSettingsWhite}" TrueValue="{StaticResource MenuSettingsBlack}" />
+    <Converters:BoolToBrushConverter x:Key="MenuBackgroundConverter" FalseValue="Transparent" TrueValue="White"/>
+    <Converters:BoolToVisibilityConverter x:Key="BoolToVisibillityConverter" FalseValue="Collapsed" TrueValue="Visible"/>
+
+    <Converters:ValueToThicknessConverter x:Key="ValueToThicknessConvert"/>
+
 </ResourceDictionary>

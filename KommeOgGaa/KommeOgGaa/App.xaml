@@ -7,11 +7,29 @@
 
 
         <ResourceDictionary >
+
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Includes/Colors.xaml"/>
                 <ResourceDictionary Source="Includes/Converters.xaml"/>
+
+
+                <ResourceDictionary Source="Templates/MenuRadioButtonTemplate.xaml"/>
+                
+                <ResourceDictionary Source="Templates/SliderTemplateThumb.xaml"/>
+                <ResourceDictionary Source="Style/SliderStyleDefaultThumb.xaml"/>
+                <ResourceDictionary Source="Templates/SliderTemplate.xaml"/>
+                <ResourceDictionary Source="Style/SliderStyleDefault.xaml"/>
+
+                <ResourceDictionary Source="Templates/PasswordBoxTemplateDefault.xaml"/>
+                <ResourceDictionary Source="Style/PasswordBoxStyleDefault.xaml"/>
+                
+                <ResourceDictionary Source="Templates/PlacerholderTemplateDefault.xaml"/>
+                <ResourceDictionary Source="Style/PlacerholderBoxStyleDefault.xaml"/>
+
+
+
             </ResourceDictionary.MergedDictionaries>
             
-            <SolidColorBrush x:Key="MainColor" Color="#3871b7"/>
 
         </ResourceDictionary>
     </Application.Resources>
