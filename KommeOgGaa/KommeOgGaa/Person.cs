@@ -31,7 +31,7 @@ namespace KommeOgGaa
         {
             var persons = new List<Person>();
 
-            string[] images = Directory.GetFiles(Directory.GetCurrentDirectory()+@"\Billeder til dansk");
+            string[] images = { };// Directory.GetFiles(Directory.GetCurrentDirectory()+@"\Billeder til dansk");
 
             Random r = new Random();
             foreach (var path in images)
