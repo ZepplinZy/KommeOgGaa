@@ -36,12 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -166,7 +166,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Picrues\CameraIMG.svg.png" />
+    <Resource Include="Picrues\CameraIMG.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Picrues\car4.jpg" />

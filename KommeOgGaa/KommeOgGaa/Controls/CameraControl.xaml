@@ -10,8 +10,8 @@
              >
     <Grid Background="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="*" MinHeight="70" MaxHeight="100"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*" MinHeight="50" MaxHeight="100"/>
         </Grid.RowDefinitions>
         <Border Background="Red">
             <Image x:Name="viewImage" Visibility="Visible" Grid.Row="0" />
