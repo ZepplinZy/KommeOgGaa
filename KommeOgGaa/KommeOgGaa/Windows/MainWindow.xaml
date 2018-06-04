@@ -231,7 +231,7 @@
                     <TextBlock Text=":"   Padding="5 5 5 0" FontSize="16"/>
                     <Controls:PlaceholderBox Text="{Binding ElementName=SliderCheckInMin, Path=Value}" Width="38" Grid.Row="1" Grid.Column="2"/>
 
-                    <Popup IsOpen="True" PlacementTarget="{Binding ElementName=txtCheckInHours}" AllowsTransparency="True">
+                    <Popup IsOpen="True" PlacementTarget="{Binding ElementName=txtCheckInHours}" AllowsTransparency="True" >
                         <Grid>
                             <Border Background="White" Padding="15 5" CornerRadius="5" Margin="0 5 0 0" BorderBrush="{StaticResource MainColor}" BorderThickness="3">
                                 <Slider  x:Name="SliderCheckInHours1" Style="{StaticResource Slider_Style_Default}" Maximum="23" Minimum="0" Value="15" Margin="0 0 5 0" Grid.Row="0" Grid.Column="1"/>
