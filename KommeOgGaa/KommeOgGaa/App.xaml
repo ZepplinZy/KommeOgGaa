@@ -26,6 +26,7 @@
                 <ResourceDictionary Source="Templates/PlacerholderTemplateDefault.xaml"/>
                 <ResourceDictionary Source="Style/PlacerholderBoxStyleDefault.xaml"/>
 
+                <ResourceDictionary Source="Templates/ButtonRoundTemplate.xaml"/>
 
 
             </ResourceDictionary.MergedDictionaries>

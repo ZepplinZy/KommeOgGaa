@@ -4,50 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KommeOgGaa.Controls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              Loaded="UserControl_Loaded"
              >
-    <Grid Background="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid Background="#FF494949" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*" MinHeight="50" MaxHeight="100"/>
         </Grid.RowDefinitions>
-        <Border Background="Red">
+        <Border Background="LightGray">
             <Image x:Name="viewImage" Visibility="Visible" Grid.Row="0" />
         </Border>
+        <Grid x:Name="overlay" Background="White" Opacity="0"/>
 
         <Button VerticalAlignment="Stretch" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
-                Foreground="Gray" Background="White" Grid.Row="1"
-                Margin="10" Click="Button_TakePicture_Click">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Canvas>
-                        <Ellipse Fill="{TemplateBinding Background}" 
-                                 Width="{TemplateBinding Property=ActualWidth}" 
-                                 Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}" />
+                Background="Gray" Foreground="White" Grid.Row="1" Cursor="Hand" Content="X" FontSize="24" FontWeight="Bold"
+                Margin="10" Click="Button_TakePicture_Click" Template="{StaticResource ButtonRoundTemplate}" />
 
-                        <Ellipse Fill="{TemplateBinding Foreground}" 
-                                 Width="{TemplateBinding Property=ActualWidth, Converter={StaticResource CameraRingButtonConverter},ConverterParameter='Double|1|Reverse'}" 
-                                 Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}" 
-                                 Margin="{TemplateBinding Property=ActualWidth, Converter={StaticResource CameraRingButtonConverter},ConverterParameter='Thickness|1|Split|0.5'}" />
-
-
-                        <Ellipse x:Name="overlay" Fill="Black" Width="{TemplateBinding Property=ActualWidth}" Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}" Opacity="0" />
-
-                    </Canvas>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="overlay" Property="Opacity" Value="0.1"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="overlay" Property="Opacity" Value="0.3"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
 
 
     </Grid>

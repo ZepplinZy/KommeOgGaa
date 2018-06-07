@@ -96,5 +96,20 @@ namespace KommeOgGaa
         }
 
         private void Button_CloseCamera_Click(object sender, RoutedEventArgs e) => CameraBtn.IsChecked = false;
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //this.Focus();
+            //Keyboard.ClearFocus();
+            
+        }
+
+        private void Grid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.IsLoaded && (sender as UIElement).Visibility == Visibility.Visible)
+            {
+                CameraView.Start();
+            }
+        }
     }
 }

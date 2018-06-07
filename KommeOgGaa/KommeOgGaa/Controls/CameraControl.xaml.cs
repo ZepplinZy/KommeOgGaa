@@ -5,7 +5,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 using WebCam_Capture;
+using System.Windows.Threading;
 
 namespace KommeOgGaa.Controls
 {
@@ -44,7 +46,7 @@ namespace KommeOgGaa.Controls
         public CameraControl()
         {
             InitializeComponent();
-
+            Init();
            // Application.Current.Exit += (o, e) => { Stop(); };
         }
 
@@ -60,6 +62,7 @@ namespace KommeOgGaa.Controls
                 };
 
                 webcam.ImageCaptured += (o, e) => { viewImage.Source = ConvertoBitmapImage(e.WebCamImage); imagelive = e.WebCamImage; };
+                hasBeenInitialize = true;
             }
             catch (Exception ex)
             {
@@ -70,10 +73,6 @@ namespace KommeOgGaa.Controls
 
         public void Start()
         {
-            if (!hasBeenInitialize)
-            {
-                Init();
-            }
             webcam.TimeToCapture_milliseconds = FrameNumber;
             webcam.Start(0);
         }
@@ -86,7 +85,27 @@ namespace KommeOgGaa.Controls
 
         public void TakePicture()
         {
-            imagelive.Save(@"C:\Users\shsk\Pictures\Img002.jpeg");
+            string folder = Directory.GetCurrentDirectory() + @"\Pictures";
+
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+            imagelive.Save(folder + @"\"+DateTime.Now.Ticks+".jpeg");
+
+            DoubleAnimation fade = new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 250)));
+            fade.AutoReverse = false;
+            fade.Completed += (s, e) => {
+                var timer = new DispatcherTimer();
+                timer.Tick += (ss,ee) => {
+                    overlay.BeginAnimation(Grid.OpacityProperty, null);
+                    overlay.Opacity = 0;
+                    (ss as DispatcherTimer).Stop(); };
+                timer.Interval = new TimeSpan(0, 0, 0, 0, 250);
+                timer.Start();
+            };
+            overlay.BeginAnimation(Grid.OpacityProperty, fade);
         }
 
 
@@ -106,7 +125,7 @@ namespace KommeOgGaa.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            //Start();
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
@@ -115,6 +134,12 @@ namespace KommeOgGaa.Controls
         }
 
         private void Button_TakePicture_Click(object sender, RoutedEventArgs e)
+        {
+            TakePicture();
+            
+        }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
         }

@@ -7,11 +7,14 @@
         xmlns:local="clr-namespace:KommeOgGaa"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="670" Width="1000">
+        
+        Title="MainWindow" Height="670" Width="1000" MouseDown="Window_MouseDown">
+    
     <Window.Resources>
         <Image x:Key="TakePictureImage" Source="/KommeOgGaa;component/Picrues/CameraIMG.png" Stretch="UniformToFill"   />
         <ImageBrush x:Key="TakePictureImage1" ImageSource="/KommeOgGaa;component/Picrues/CameraIMG.png" Stretch="UniformToFill"   />
     </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -22,8 +25,11 @@
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <Grid Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2" Background="#a0000000" Panel.ZIndex="1000" Visibility="{Binding ElementName=CameraBtn, Path=IsChecked, Converter={StaticResource BoolToVisibillityConverter}}">
+     
+        <Grid IsVisibleChanged="Grid_IsVisibleChanged" 
+              Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"
+              Background="#a0000000" Panel.ZIndex="1000" 
+              Visibility="{Binding ElementName=CameraBtn, Path=IsChecked, Converter={StaticResource BoolToVisibillityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
@@ -37,10 +43,16 @@
             </Grid.ColumnDefinitions>
 
 
-            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1"> 
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1">
 
-                <Button Content="X" HorizontalAlignment="Right" Click="Button_CloseCamera_Click" VerticalAlignment="Top" Panel.ZIndex="100" FontSize="30" FontWeight="Bold" Padding="15 5" Margin="0 -28 -26 0"/>
-                <Controls:CameraControl /> 
+
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="110"
+                        Height="50" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
+                        Background="White" Foreground="Red" Grid.Row="1" Cursor="Hand" Content="X" FontSize="24" FontWeight="Bold"
+                        Margin="0 -28 -26 0" Click="Button_CloseCamera_Click"
+                        Template="{StaticResource ButtonRoundTemplate}" />
+
+                <Controls:CameraControl x:Name="CameraView"/> 
             </Grid>
             
         </Grid>
@@ -216,31 +228,18 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
             <!-- Check In -->
             <StackPanel Grid.Column="1" Grid.Row="1" >
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Senest tjek ind kl. " Margin="0 0 10 0" Padding="0 5 0 0" FontSize="16"/>
-                    <Controls:PlaceholderBox x:Name="txtCheckInHours" Text="{Binding ElementName=SliderCheckInHours, Path=Value}" Width="38" Grid.Row="0" Grid.Column="2"/>
-                    <TextBlock Text=":"   Padding="5 5 5 0" FontSize="16"/>
-                    <Controls:PlaceholderBox Text="{Binding ElementName=SliderCheckInMin, Path=Value}" Width="38" Grid.Row="1" Grid.Column="2"/>
+                
 
-                    <Popup IsOpen="True" PlacementTarget="{Binding ElementName=txtCheckInHours}" AllowsTransparency="True" >
-                        <Grid>
-                            <Border Background="White" Padding="15 5" CornerRadius="5" Margin="0 5 0 0" BorderBrush="{StaticResource MainColor}" BorderThickness="3">
-                                <Slider  x:Name="SliderCheckInHours1" Style="{StaticResource Slider_Style_Default}" Maximum="23" Minimum="0" Value="15" Margin="0 0 5 0" Grid.Row="0" Grid.Column="1"/>
-                            </Border>
-                        </Grid>
-                    </Popup>
-                </StackPanel>
-
-                <TextBlock Text="senest tjek ind" />
+                <TextBlock Text="Senest tjek ind" FontWeight="Bold" FontSize="16" />
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -272,8 +271,8 @@
 
 
             <!-- Check Ud -->
-            <StackPanel Grid.Column="1" Grid.Row="2" >
-                <TextBlock Text="senest tjek ud" />
+            <StackPanel Grid.Column="3" Grid.Row="1" >
+                <TextBlock Text="Tideligst tjek ud" FontWeight="Bold" FontSize="16"/>
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -303,6 +302,15 @@
                 </StackPanel>
             </StackPanel>
 
+            <!-- Slet Data -->
+            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                <TextBlock Text="Gem data i " FontSize="16" Padding="0 5"/>
+                <Controls:PlaceholderBox Text="7" />
+                <TextBlock Text="dage." FontSize="16" Padding="0 5"/>
+            </StackPanel>
+            
+            <!-- Knap Gem -->
+            <Button Content="Gem" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" Margin="0 10" Padding="0 10" FontWeight="Bold" Background="#4CAF50" Foreground="White" FontSize="18"/>
 
         </Grid>
 
