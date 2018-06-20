@@ -6,8 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
-using WebCam_Capture;
 using System.Windows.Threading;
+using Touchless.Vision.Camera;
 
 namespace KommeOgGaa.Controls
 {
@@ -17,7 +17,69 @@ namespace KommeOgGaa.Controls
     public partial class CameraControl : UserControl
     {
 
-        private bool hasBeenInitialize = false;
+
+
+        #region Fields
+
+        private static Bitmap _previewImage;
+        private CameraFrameSource _frameSource;
+
+        public event Action<object, bool, string> OnPictureCompleted;
+
+        #endregion
+
+
+        #region Properties
+
+
+
+        public bool IsCheckIn
+        {
+            get { return (bool)GetValue(IsCheckInProperty); }
+            set { SetValue(IsCheckInProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsCheckIn.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsCheckInProperty =
+            DependencyProperty.Register("IsCheckIn", typeof(bool), typeof(CameraControl), new PropertyMetadata(true));
+
+
+
+        public bool ShowPreviewImage
+        {
+            get { return (bool)GetValue(ShowPreviewImageProperty); }
+            private set { SetValue(ShowPreviewImageProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowPreviewImage.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowPreviewImageProperty =
+            DependencyProperty.Register("ShowPreviewImage", typeof(bool), typeof(CameraControl), new PropertyMetadata(false));
+
+
+
+        public Camera CurrentCamera
+        {
+            get
+            {
+                if (MainCamera != null)
+                {
+                    return MainCamera;
+                }
+
+                if (CameraService.AvailableCameras.Count > 0)
+                {
+                    return CameraService.AvailableCameras[0];
+                }
+
+                return null;
+            }
+        }
+
+        public Camera MainCamera
+        {
+            get { return (Camera)GetValue(MainCameraProperty); }
+            set { SetValue(MainCameraProperty, value); }
+        }
 
         public string Folder
         {
@@ -25,123 +87,171 @@ namespace KommeOgGaa.Controls
             set { SetValue(FolderProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Folder.  This enables animation, styling, binding, etc...
+
+        public static readonly DependencyProperty MainCameraProperty =
+            DependencyProperty.Register("MainCamera", typeof(Camera), typeof(CameraControl), new PropertyMetadata(null));
+
+
         public static readonly DependencyProperty FolderProperty =
             DependencyProperty.Register("Folder", typeof(string), typeof(CameraControl), new PropertyMetadata(null));
 
 
-        public int FrameNumber
-        {
-            get { return (int)GetValue(FrameNumberProperty); }
-            set { SetValue(FrameNumberProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for FrameNumber.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FrameNumberProperty =
-            DependencyProperty.Register("FrameNumber", typeof(int), typeof(CameraControl), new PropertyMetadata(30));
+        #endregion
 
 
-        private System.Drawing.Image imagelive;
-        private WebCamCapture webcam;
+        #region Methods
+
         public CameraControl()
         {
             InitializeComponent();
-            Init();
-           // Application.Current.Exit += (o, e) => { Stop(); };
+            Application.Current.Exit += (o, e) => { Stop(); };
         }
-
-        public void Init()
-        {
-            try
-            {
-
-                webcam = new WebCamCapture
-                {
-                    FrameNumber = ulong.Parse(FrameNumber.ToString()),
-                    TimeToCapture_milliseconds = FrameNumber
-                };
-
-                webcam.ImageCaptured += (o, e) => { viewImage.Source = ConvertoBitmapImage(e.WebCamImage); imagelive = e.WebCamImage; };
-                hasBeenInitialize = true;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
-            }
-        }
-        
 
         public void Start()
         {
-            webcam.TimeToCapture_milliseconds = FrameNumber;
-            webcam.Start(0);
+            Stop();
+
+            if (CurrentCamera == null)
+            {
+                MessageBox.Show("Der blev ikke fundet noget webcamera.");
+                return;
+            }
+
+            try
+            {
+                SetFrameSource(new CameraFrameSource(CurrentCamera));
+                _frameSource.Camera.CaptureWidth = 600;
+                _frameSource.Camera.CaptureHeight = 600;
+                _frameSource.Camera.Fps = 50;
+                _frameSource.NewFrame += OnImageCaptured;
+                _frameSource.StartFrameCapture();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
         public void Stop()
         {
-           webcam.Stop();
+            // Trash the old camera
+            if (_frameSource != null)
+            {
+                _frameSource.NewFrame -= OnImageCaptured;
+                _frameSource.Camera.Dispose();
+                SetFrameSource(null);
+            }
+            
+            ShowPreviewImage = false;
+            _previewImage = null;
         }
-        
 
+        public void SavePicture()
+        {
+            if (_frameSource == null)
+                return;
+
+            string folder = @"\Pictures";
+            string filename = folder + @"\" + DateTime.Now.Ticks + ".jpeg";
+
+            Bitmap current = (Bitmap)_previewImage.Clone();
+            current.Save(Directory.GetCurrentDirectory() + filename);
+            current.Dispose();
+
+            OnPictureCompleted?.Invoke(this, IsCheckIn, filename);
+        }
 
         public void TakePicture()
         {
-            string folder = Directory.GetCurrentDirectory() + @"\Pictures";
+            if (_frameSource == null)
+                return;
 
-            if (!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
 
-            imagelive.Save(folder + @"\"+DateTime.Now.Ticks+".jpeg");
-
-            DoubleAnimation fade = new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 250)));
-            fade.AutoReverse = false;
-            fade.Completed += (s, e) => {
-                var timer = new DispatcherTimer();
-                timer.Tick += (ss,ee) => {
-                    overlay.BeginAnimation(Grid.OpacityProperty, null);
-                    overlay.Opacity = 0;
-                    (ss as DispatcherTimer).Stop(); };
-                timer.Interval = new TimeSpan(0, 0, 0, 0, 250);
-                timer.Start();
-            };
+            DoubleAnimation fade = new DoubleAnimation(1, 0, new Duration(new TimeSpan(0, 0, 0, 0, 250)));
             overlay.BeginAnimation(Grid.OpacityProperty, fade);
+
+            try
+            {
+                var bitmap = (Bitmap)_frameSource.Camera.GetCurrentImage();
+                if (bitmap != null)
+                {
+                    _previewImage = (Bitmap)bitmap.Clone();
+                    viewImage.Source = BitmapToImageSource(_previewImage);
+                    ShowPreviewImage = true;
+
+                }
+            }
+            catch (Exception)
+            {
+                System.Diagnostics.Debug.WriteLine("Failed taking picture");
+                TakePicture();
+            }
+            
         }
 
 
 
-        private static BitmapImage ConvertoBitmapImage(System.Drawing.Image img)
+        private BitmapImage BitmapToImageSource(Bitmap bitmap)
         {
-            MemoryStream ms = new MemoryStream();  // no using here! BitmapImage will dispose the stream after loading
-            img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            if (bitmap == null) return null;
 
-            BitmapImage ix = new BitmapImage();
-            ix.BeginInit();
-            ix.CacheOption = BitmapCacheOption.OnLoad;
-            ix.StreamSource = ms;
-            ix.EndInit();
-            return ix;
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
+            }
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void SetFrameSource(CameraFrameSource cameraFrameSource)
         {
-            //Start();
+            if (_frameSource == cameraFrameSource)
+                return;
+
+            _frameSource = cameraFrameSource;
         }
 
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region Events
+
+        public void OnImageCaptured(Touchless.Vision.Contracts.IFrameSource frameSource, Touchless.Vision.Contracts.Frame frame, double fps)
         {
-            //Stop();
+
+            if (_previewImage == null)
+            {
+                Dispatcher.Invoke(() => { if (!ShowPreviewImage) viewImage.Source = BitmapToImageSource(frame.Image); });
+            }
         }
 
         private void Button_TakePicture_Click(object sender, RoutedEventArgs e)
         {
             TakePicture();
-            
         }
 
-        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+
+        private void Button_Confirm_Click(object sender, RoutedEventArgs e)
         {
-
+            SavePicture();
+            Button_Retake_Click(null, null);
         }
+        private void Button_Retake_Click(object sender, RoutedEventArgs e)
+        {
+            _previewImage = null;
+            ShowPreviewImage = false;
+        }
+
+
+
+
+
+        #endregion
+
     }
 }

@@ -24,6 +24,9 @@
     <Converters:BoolToBrushConverter x:Key="MenuBackgroundConverter" FalseValue="Transparent" TrueValue="White"/>
     <Converters:BoolToBrushConverter x:Key="MenuForegroundConverter" FalseValue="White" TrueValue="Black"/>
     <Converters:BoolToVisibilityConverter x:Key="BoolToVisibillityConverter" FalseValue="Collapsed" TrueValue="Visible"/>
+    <Converters:BoolToVisibilityConverter x:Key="BoolToVisibillityReverseConverter" FalseValue="Visible" TrueValue="Collapsed"/>
+    <Converters:BoolToStringConverter  x:Key="CameraCheckInText" FalseValue="tjekke ud" TrueValue="tjekke ind"/>
+    <Converters:CategoryChangeConverter  x:Key="CheckInVisibillityConverter" />
 
     <Converters:ValueToThicknessConverter x:Key="ValueToThicknessConvert"/>
 

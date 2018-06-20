@@ -11,6 +11,7 @@ namespace KommeOgGaa.Converters
     class BoolToBrushConverter : BoolToValueConverter<System.Windows.Media.Brush> { }
     class BoolToVisibilityConverter : BoolToValueConverter<System.Windows.Visibility> { }
     class BoolToImageConverter : BoolToValueConverter<System.Windows.Controls.Image> { }
+    class BoolToStringConverter : BoolToValueConverter<string> { }
 
     class BoolToValueConverter<T> : IValueConverter
     {
