@@ -9,6 +9,8 @@
         <ResourceDictionary >
 
             <ResourceDictionary.MergedDictionaries>
+
+
                 <ResourceDictionary Source="Includes/Colors.xaml"/>
                 <ResourceDictionary Source="Includes/Converters.xaml"/>
 

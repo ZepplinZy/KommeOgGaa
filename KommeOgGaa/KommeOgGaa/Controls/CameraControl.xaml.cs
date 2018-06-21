@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using Touchless.Vision.Camera;
+using System.Threading;
 
 namespace KommeOgGaa.Controls
 {
@@ -21,6 +22,7 @@ namespace KommeOgGaa.Controls
 
         #region Fields
 
+        private static bool isReady = false;
         private static Bitmap _previewImage;
         private CameraFrameSource _frameSource;
 
@@ -116,6 +118,7 @@ namespace KommeOgGaa.Controls
                 MessageBox.Show("Der blev ikke fundet noget webcamera.");
                 return;
             }
+            
 
             try
             {
@@ -125,6 +128,7 @@ namespace KommeOgGaa.Controls
                 _frameSource.Camera.Fps = 50;
                 _frameSource.NewFrame += OnImageCaptured;
                 _frameSource.StartFrameCapture();
+                
             }
             catch (Exception ex)
             {
@@ -134,6 +138,7 @@ namespace KommeOgGaa.Controls
 
         public void Stop()
         {
+            isReady = false;
             // Trash the old camera
             if (_frameSource != null)
             {
@@ -148,7 +153,7 @@ namespace KommeOgGaa.Controls
 
         public void SavePicture()
         {
-            if (_frameSource == null)
+            if (_frameSource == null || !isReady)
                 return;
 
             string folder = @"\Pictures";
@@ -163,7 +168,7 @@ namespace KommeOgGaa.Controls
 
         public void TakePicture()
         {
-            if (_frameSource == null)
+            if (_frameSource == null || !isReady)
                 return;
 
 
@@ -223,11 +228,12 @@ namespace KommeOgGaa.Controls
 
         public void OnImageCaptured(Touchless.Vision.Contracts.IFrameSource frameSource, Touchless.Vision.Contracts.Frame frame, double fps)
         {
-
             if (_previewImage == null)
             {
                 Dispatcher.Invoke(() => { if (!ShowPreviewImage) viewImage.Source = BitmapToImageSource(frame.Image); });
             }
+
+            isReady = true;
         }
 
         private void Button_TakePicture_Click(object sender, RoutedEventArgs e)

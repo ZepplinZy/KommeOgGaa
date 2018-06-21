@@ -122,14 +122,16 @@ namespace KommeOgGaa
                     string filename = Directory.GetCurrentDirectory() + item[0];
                     try
                     {
-                        File.Delete(filename);
+                        if (File.Exists(filename))
+                        {
+                            File.Delete(filename);
+                        }
                     }
                     catch (Exception)
                     {
                         errors.Add(filename);
                     }
                 }
-                
             }
 
             SQLite_DB_LIB.Database.Delete("Persons", " WHERE `Ticks` < " + time);

@@ -67,6 +67,19 @@ namespace KommeOgGaa
             Person.DeleteOldRecords(Convert.ToInt32(Settings["DeleteData"]));
             todayList.Clear();
 
+            //Person p = new Person()
+            //{
+            //    PicturesLocation = "",
+            //    IsCheckIn = true,
+            //    IsLate = false,
+            //    Category = "A",
+            //    Ticks = new DateTime(2018, 6, 18, 8, 0, 0).Ticks,
+
+            //};
+            //p.Insert();
+            //p.Insert();
+            //p.Insert();
+
             foreach (var item in Person.GetAllCheckInToday())
             {
                 todayList.Add(item);
@@ -160,7 +173,11 @@ namespace KommeOgGaa
             }
         }
 
-        private void Button_CloseCamera_Click(object sender, RoutedEventArgs e) { CameraBtn.IsChecked = false; CameraView.IsCheckIn = true; }
+        private void Button_CloseCamera_Click(object sender, RoutedEventArgs e)
+        {
+            CameraView.IsCheckIn = true;
+            CameraBtn.IsChecked = false;
+        }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {

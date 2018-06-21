@@ -207,6 +207,7 @@
     <Content Include="Lib\Touchless.Vision.dll" />
     <Content Include="Lib\WebCamLib.dll" />
     <Content Include="Lib\WebCam_Capture.dll" />
+    <Resource Include="Picrues\ImageNotFound.png" />
     <Resource Include="Picrues\LogOut.png" />
     <Resource Include="Picrues\LogIn.png" />
     <Resource Include="Picrues\LogIn_White.png" />

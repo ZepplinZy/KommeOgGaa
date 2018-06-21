@@ -11,6 +11,8 @@
     <Image x:Key="MenuLogInBlack" Source="/KommeOgGaa;component/Picrues/LogIn.png"/>
     <Image x:Key="MenuLogInWhite" Source="/KommeOgGaa;component/Picrues/LogIn_White.png"/>
     <Image x:Key="MenuLogOut" Source="/KommeOgGaa;component/Picrues/LogOut_White.png"/>
+    <BitmapImage  x:Key="FailedToLoadedImage" UriSource="/KommeOgGaa;component/Picrues/ImageNotFound.png"/>
+    
     
     
     

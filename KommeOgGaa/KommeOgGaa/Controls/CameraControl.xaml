@@ -42,6 +42,7 @@
 
         <!-- tag billede -->
         <Button VerticalAlignment="Stretch" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
+                x:Name="btnTakePicture"
                  Visibility="{Binding ElementName=controls, Path=ShowPreviewImage,Converter={StaticResource BoolToVisibillityReverseConverter} }"
                 Background="Gray" Foreground="White" Grid.Row="1" Cursor="Hand" Content="" FontSize="24" FontWeight="Bold"
                 Margin="10" Click="Button_TakePicture_Click" Template="{StaticResource ButtonRoundTemplate}" />
