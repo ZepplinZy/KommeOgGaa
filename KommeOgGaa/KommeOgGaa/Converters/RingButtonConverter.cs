@@ -36,11 +36,11 @@ namespace KommeOgGaa.Converters
             if (args.Length > 2 && args[2].ToLower() == "split")
             {
                 val = val * System.Convert.ToDouble(args[3], CultureInfo.InvariantCulture);
-                System.Diagnostics.Debug.WriteLine(args[0].ToLower() + " T: " + double.Parse(args[3]));
+               // System.Diagnostics.Debug.WriteLine(args[0].ToLower() + " T: " + double.Parse(args[3]));
             }
 
 
-            System.Diagnostics.Debug.WriteLine(args[0].ToLower() + " R: " + val + "V: " + value);
+            //System.Diagnostics.Debug.WriteLine(args[0].ToLower() + " R: " + val + "V: " + value);
 
             switch (args[0].ToLower())
             {

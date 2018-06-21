@@ -40,7 +40,7 @@ namespace KommeOgGaa
 
         // Using a DependencyProperty as the backing store for IsAdmin.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsAdminProperty =
-            DependencyProperty.Register("IsAdmin", typeof(bool), typeof(MainWindow), new PropertyMetadata(true));
+            DependencyProperty.Register("IsAdmin", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
 
 
 
@@ -138,7 +138,7 @@ namespace KommeOgGaa
                 new SQLite_DB_LIB.Column() { name = "Password", type = SQLite_DB_LIB.Column.TYPE_STRING }
             );
 
-            
+            //SQLite_DB_LIB.Database.Insert("Admins", new string[] { "Username", "Password" }, new object[] { "", "" });
 
         }
 
