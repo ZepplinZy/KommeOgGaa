@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms" 
              xmlns:local="clr-namespace:KommeOgGaa.Controls"
              mc:Ignorable="d" x:Name="controls"
              d:DesignHeight="450" d:DesignWidth="800"
@@ -13,8 +14,11 @@
             <RowDefinition Height="*" MinHeight="50" MaxHeight="100"/>
         </Grid.RowDefinitions>
         <Border Background="LightGray">
-            <Image x:Name="viewImage" Visibility="Visible" Grid.Row="0" />
-           
+            <!--<Image x:Name="viewImage" Visibility="Visible" Grid.Row="0" />-->
+
+            <WindowsFormsHost Grid.Column="0">
+                <wf:Panel x:Name="PART_VideoPanel"/>
+            </WindowsFormsHost>
         </Border>
         <Grid x:Name="overlay" Background="White" Opacity="0"/>
 

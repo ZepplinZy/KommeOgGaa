@@ -181,29 +181,29 @@ namespace KommeOgGaa.Controls
 
         public void TakePicture()
         {
-            if (_frameSource == null || !isReady)
-                return;
+            //if (_frameSource == null || !isReady)
+            //    return;
 
 
-            DoubleAnimation fade = new DoubleAnimation(1, 0, new Duration(new TimeSpan(0, 0, 0, 0, 250)));
-            overlay.BeginAnimation(Grid.OpacityProperty, fade);
+            //DoubleAnimation fade = new DoubleAnimation(1, 0, new Duration(new TimeSpan(0, 0, 0, 0, 250)));
+            //overlay.BeginAnimation(Grid.OpacityProperty, fade);
 
-            try
-            {
-                var bitmap = (Bitmap)_frameSource.Camera.GetCurrentImage();
-                if (bitmap != null)
-                {
-                    _previewImage = (Bitmap)bitmap.Clone();
-                    viewImage.Source = BitmapToImageSource(_previewImage);
-                    ShowPreviewImage = true;
+            //try
+            //{
+            //    var bitmap = (Bitmap)_frameSource.Camera.GetCurrentImage();
+            //    if (bitmap != null)
+            //    {
+            //        _previewImage = (Bitmap)bitmap.Clone();
+            //        viewImage.Source = BitmapToImageSource(_previewImage);
+            //        ShowPreviewImage = true;
 
-                }
-            }
-            catch (Exception)
-            {
-                System.Diagnostics.Debug.WriteLine("Failed taking picture");
-                TakePicture();
-            }
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    System.Diagnostics.Debug.WriteLine("Failed taking picture");
+            //    TakePicture();
+            //}
             
         }
 
@@ -241,12 +241,12 @@ namespace KommeOgGaa.Controls
 
         public void OnImageCaptured(Touchless.Vision.Contracts.IFrameSource frameSource, Touchless.Vision.Contracts.Frame frame, double fps)
         {
-            if (_previewImage == null)
-            {
-                Dispatcher.Invoke(() => { if (!ShowPreviewImage) viewImage.Source = BitmapToImageSource(frame.Image); });
-            }
+            //if (_previewImage == null)
+            //{
+            //    Dispatcher.Invoke(() => { if (!ShowPreviewImage) viewImage.Source = BitmapToImageSource(frame.Image); });
+            //}
 
-            isReady = true;
+            //isReady = true;
         }
 
         private void Button_TakePicture_Click(object sender, RoutedEventArgs e)
