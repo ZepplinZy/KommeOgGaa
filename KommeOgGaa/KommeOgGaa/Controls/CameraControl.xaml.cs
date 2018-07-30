@@ -217,11 +217,15 @@ namespace KommeOgGaa.Controls
         }
         private void Image_OnPreview(BitmapImage bmp)
         {
+            this.Dispatcher.Invoke(() => {
+            
+                viewImage.Source = bmp;
+                viewVideo.Visibility = Visibility.Collapsed;
+                viewImage.Visibility = Visibility.Visible;
+                ShowPreviewImage = true;
 
-            viewImage.Source = bmp;
-            viewVideo.Visibility = Visibility.Collapsed;
-            viewImage.Visibility = Visibility.Visible;
-            ShowPreviewImage = true;
+
+            });
         }
 
 
