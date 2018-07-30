@@ -437,26 +437,26 @@ namespace KommeOgGaa.Controls
 
                                 using (var ms = new MemoryStream())
                                 {
-                                    bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                    //bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                    bmp.Save("hallo.pnb");
+                                    //byte[] data = ms.ToArray();
 
-                                    byte[] data = ms.ToArray();
+                                    //var uri = new Uri($"");
+                                    //var req = (HttpWebRequest)HttpWebRequest.Create(uri);
+                                    //req.Method = "POST";
+                                    //req.ContentType = "application/octet-stream";
+                                    //req.Headers.Add("Ocp-Apim-Subscription-Key", "");
+                                    //req.ContentLength = data.Length;
+                                    //using (var stm = req.GetRequestStream())
+                                    //    stm.Write(data, 0, data.Length);
+                                    //using (var res = req.GetResponse())
+                                    //using (var stm = res.GetResponseStream())
+                                    //using (var sr = new StreamReader(stm))
+                                    //using (var jr = new JsonTextReader(sr))
+                                    //{
+                                    //    var obj = serializer.Deserialize<ExpandoObject[]>(jr);
 
-                                    var uri = new Uri($"");
-                                    var req = (HttpWebRequest)HttpWebRequest.Create(uri);
-                                    req.Method = "POST";
-                                    req.ContentType = "application/octet-stream";
-                                    req.Headers.Add("Ocp-Apim-Subscription-Key", "");
-                                    req.ContentLength = data.Length;
-                                    using (var stm = req.GetRequestStream())
-                                        stm.Write(data, 0, data.Length);
-                                    using (var res = req.GetResponse())
-                                    using (var stm = res.GetResponseStream())
-                                    using (var sr = new StreamReader(stm))
-                                    using (var jr = new JsonTextReader(sr))
-                                    {
-                                        var obj = serializer.Deserialize<ExpandoObject[]>(jr);
-
-                                    }
+                                    //}
                                 }
                             }
                         }

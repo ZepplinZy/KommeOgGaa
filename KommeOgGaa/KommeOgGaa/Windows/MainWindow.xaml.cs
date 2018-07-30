@@ -62,7 +62,7 @@ namespace KommeOgGaa
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ConnectToDatabase();
-            CreateDatabase(); 
+            //CreateDatabase(); 
             LoadSettings();
             Person.DeleteOldRecords(Convert.ToInt32(Settings["DeleteData"]));
             todayList.Clear();
