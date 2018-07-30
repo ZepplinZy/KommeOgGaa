@@ -263,7 +263,8 @@ namespace KommeOgGaa.Controls
 
         private void Button_TakePicture_Click(object sender, RoutedEventArgs e)
         {
-            TakePicture();
+            callback?.Trigger?.Set();
+            //TakePicture();
         }
 
 
