@@ -181,6 +181,11 @@ namespace KommeOgGaa.Controls
 
         public void TakePicture()
         {
+            callback?.Trigger?.Set();
+            viewImage.Source = callback.SourceImage;
+
+            viewVideo.Visibility = Visibility.Collapsed;
+            viewImage.Visibility = Visibility.Visible;
             //if (_frameSource == null || !isReady)
             //    return;
 
@@ -204,7 +209,7 @@ namespace KommeOgGaa.Controls
             //    System.Diagnostics.Debug.WriteLine("Failed taking picture");
             //    TakePicture();
             //}
-            
+
         }
 
 
@@ -263,8 +268,8 @@ namespace KommeOgGaa.Controls
 
         private void Button_TakePicture_Click(object sender, RoutedEventArgs e)
         {
-            callback?.Trigger?.Set();
-            //TakePicture();
+            
+            TakePicture();
         }
 
 
@@ -407,6 +412,7 @@ namespace KommeOgGaa.Controls
 
         class SampleGrabberCallback : ISampleGrabberCB
         {
+            public BitmapImage SourceImage { get; set; }
             public int Width { get; set; }
             public int Height { get; set; }
             public int Stride { get; set; }
@@ -434,30 +440,30 @@ namespace KommeOgGaa.Controls
                             using (var bmp = new Bitmap(Width, Height, Stride, System.Drawing.Imaging.PixelFormat.Format24bppRgb, buf))
                             {
                                 bmp.RotateFlip(RotateFlipType.Rotate180FlipX);
+                                SourceImage = BitmapToImageSource(bmp);
+                                //using (var ms = new MemoryStream())
+                                //{
+                                //    //bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                //    bmp.Save("hallo.pnb");
+                                //    //byte[] data = ms.ToArray();
 
-                                using (var ms = new MemoryStream())
-                                {
-                                    //bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                                    bmp.Save("hallo.pnb");
-                                    //byte[] data = ms.ToArray();
+                                //    //var uri = new Uri($"");
+                                //    //var req = (HttpWebRequest)HttpWebRequest.Create(uri);
+                                //    //req.Method = "POST";
+                                //    //req.ContentType = "application/octet-stream";
+                                //    //req.Headers.Add("Ocp-Apim-Subscription-Key", "");
+                                //    //req.ContentLength = data.Length;
+                                //    //using (var stm = req.GetRequestStream())
+                                //    //    stm.Write(data, 0, data.Length);
+                                //    //using (var res = req.GetResponse())
+                                //    //using (var stm = res.GetResponseStream())
+                                //    //using (var sr = new StreamReader(stm))
+                                //    //using (var jr = new JsonTextReader(sr))
+                                //    //{
+                                //    //    var obj = serializer.Deserialize<ExpandoObject[]>(jr);
 
-                                    //var uri = new Uri($"");
-                                    //var req = (HttpWebRequest)HttpWebRequest.Create(uri);
-                                    //req.Method = "POST";
-                                    //req.ContentType = "application/octet-stream";
-                                    //req.Headers.Add("Ocp-Apim-Subscription-Key", "");
-                                    //req.ContentLength = data.Length;
-                                    //using (var stm = req.GetRequestStream())
-                                    //    stm.Write(data, 0, data.Length);
-                                    //using (var res = req.GetResponse())
-                                    //using (var stm = res.GetResponseStream())
-                                    //using (var sr = new StreamReader(stm))
-                                    //using (var jr = new JsonTextReader(sr))
-                                    //{
-                                    //    var obj = serializer.Deserialize<ExpandoObject[]>(jr);
-
-                                    //}
-                                }
+                                //    //}
+                                //}
                             }
                         }
                     }
@@ -472,6 +478,24 @@ namespace KommeOgGaa.Controls
             public int BufferCB(double SampleTime, IntPtr pBuffer, int BufferLen)
             {
                 return 0;
+            }
+
+            private BitmapImage BitmapToImageSource(Bitmap bitmap)
+            {
+                if (bitmap == null) return null;
+
+                using (MemoryStream memory = new MemoryStream())
+                {
+                    bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memory.Position = 0;
+                    BitmapImage bitmapimage = new BitmapImage();
+                    bitmapimage.BeginInit();
+                    bitmapimage.StreamSource = memory;
+                    bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapimage.EndInit();
+
+                    return bitmapimage;
+                }
             }
         }
     }

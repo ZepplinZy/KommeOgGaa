@@ -14,11 +14,13 @@
             <RowDefinition Height="*" MinHeight="50" MaxHeight="100"/>
         </Grid.RowDefinitions>
         <Border Background="LightGray">
-            <!--<Image x:Name="viewImage" Visibility="Visible" Grid.Row="0" />-->
-            <WindowsFormsHost Grid.Column="0" Height="{Binding ElementName=overlay, Path=ActualHeight}" Width="{Binding ElementName=overlay, Path=ActualHeight}"
+            <Grid>
+                <Image x:Name="viewImage" Visibility="Collapsed" Grid.Row="0" />
+                <WindowsFormsHost x:Name="viewVideo" Grid.Column="0" Height="{Binding ElementName=overlay, Path=ActualHeight}" Width="{Binding ElementName=overlay, Path=ActualHeight}"
                                 SizeChanged="Window_SizeChanged">
-                <wf:Panel x:Name="PART_VideoPanel"/>
-            </WindowsFormsHost>
+                    <wf:Panel x:Name="PART_VideoPanel"/>
+                </WindowsFormsHost>
+            </Grid>
         </Border>
         <Grid x:Name="overlay" Background="White" Opacity="0"/>
 
