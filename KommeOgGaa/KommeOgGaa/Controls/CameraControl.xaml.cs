@@ -7,7 +7,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-using Touchless.Vision.Camera;
 using System.Threading;
 
 using System.Runtime.InteropServices.ComTypes;
@@ -36,7 +35,6 @@ namespace KommeOgGaa.Controls
 
         private static bool isReady = false;
         private static Bitmap _previewImage;
-        private CameraFrameSource _frameSource;
 
         public event Action<object, bool, string> OnPictureCompleted;
 
@@ -70,41 +68,14 @@ namespace KommeOgGaa.Controls
             DependencyProperty.Register("ShowPreviewImage", typeof(bool), typeof(CameraControl), new PropertyMetadata(false));
 
 
-
-        public Camera CurrentCamera
-        {
-            get
-            {
-                if (MainCamera != null)
-                {
-                    return MainCamera;
-                }
-
-                if (CameraService.AvailableCameras.Count > 0)
-                {
-                    return CameraService.AvailableCameras[0];
-                }
-
-                return null;
-            }
-        }
-
-        public Camera MainCamera
-        {
-            get { return (Camera)GetValue(MainCameraProperty); }
-            set { SetValue(MainCameraProperty, value); }
-        }
-
+        
         public string Folder
         {
             get { return (string)GetValue(FolderProperty); }
             set { SetValue(FolderProperty, value); }
         }
 
-
-        public static readonly DependencyProperty MainCameraProperty =
-            DependencyProperty.Register("MainCamera", typeof(Camera), typeof(CameraControl), new PropertyMetadata(null));
-
+        
 
         public static readonly DependencyProperty FolderProperty =
             DependencyProperty.Register("Folder", typeof(string), typeof(CameraControl), new PropertyMetadata(null));
@@ -173,8 +144,6 @@ namespace KommeOgGaa.Controls
 
         public void SavePicture()
         {
-            if (_frameSource == null || !isReady)
-                return;
 
             string folder = @"\Pictures";
             string filename = folder + @"\" + DateTime.Now.Ticks + ".jpeg";
@@ -215,11 +184,11 @@ namespace KommeOgGaa.Controls
             //}
 
         }
-        private void Image_OnPreview(BitmapImage bmp)
+        private void Image_OnPreview()
         {
-            this.Dispatcher.Invoke(() => {
+            Dispatcher.Invoke(() => {
             
-                viewImage.Source = bmp;
+                viewImage.Source = BitmapToImageSource(_previewImage);
                 viewVideo.Visibility = Visibility.Collapsed;
                 viewImage.Visibility = Visibility.Visible;
                 ShowPreviewImage = true;
@@ -246,15 +215,7 @@ namespace KommeOgGaa.Controls
                 return bitmapimage;
             }
         }
-
-        private void SetFrameSource(CameraFrameSource cameraFrameSource)
-        {
-            if (_frameSource == cameraFrameSource)
-                return;
-
-            _frameSource = cameraFrameSource;
-        }
-
+        
         #endregion
 
         #region Events
@@ -268,17 +229,6 @@ namespace KommeOgGaa.Controls
                 IVideoWindow window = (IVideoWindow)graph;
                 var retVal = window.SetWindowPosition(0, 0, (int)panel.ClientSize.Width, (int)panel.ClientSize.Height);
             }
-        }
-
-
-        public void OnImageCaptured(Touchless.Vision.Contracts.IFrameSource frameSource, Touchless.Vision.Contracts.Frame frame, double fps)
-        {
-            //if (_previewImage == null)
-            //{
-            //    Dispatcher.Invoke(() => { if (!ShowPreviewImage) viewImage.Source = BitmapToImageSource(frame.Image); });
-            //}
-
-            //isReady = true;
         }
 
         private void Button_TakePicture_Click(object sender, RoutedEventArgs e)
@@ -348,7 +298,7 @@ namespace KommeOgGaa.Controls
             var header = (VideoInfoHeader)Marshal.PtrToStructure(pmt.FormatPtr, typeof(VideoInfoHeader));
             var width = header.BmiHeader.Width;
             var height = header.BmiHeader.Height;
-            var stride = width * (header.BmiHeader.BitCount / 8);
+            var stride = 4 * ((24 * width + 31) / 32); //width * (header.BmiHeader.BitCount / 8);
             callback = new SampleGrabberCallback() { Width = width, Height = height, Stride = stride };
             callback.callback = Image_OnPreview;
             retVal = ((ISampleGrabber)grabber).SetCallback(callback, 0);
@@ -431,7 +381,7 @@ namespace KommeOgGaa.Controls
 
         class SampleGrabberCallback : ISampleGrabberCB
         {
-            public Action<BitmapImage> callback;
+            public Action callback;
             public int Width { get; set; }
             public int Height { get; set; }
             public int Stride { get; set; }
@@ -459,7 +409,8 @@ namespace KommeOgGaa.Controls
                             using (var bmp = new Bitmap(Width, Height, Stride, System.Drawing.Imaging.PixelFormat.Format24bppRgb, buf))
                             {
                                 bmp.RotateFlip(RotateFlipType.Rotate180FlipX);
-                                callback?.Invoke(BitmapToImageSource(bmp));
+                                _previewImage = (Bitmap)bmp.Clone();
+                                callback?.Invoke();
                                 //using (var ms = new MemoryStream())
                                 //{
                                 //    //bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
