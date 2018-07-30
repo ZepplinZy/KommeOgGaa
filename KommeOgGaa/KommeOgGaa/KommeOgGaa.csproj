@@ -37,6 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -151,6 +154,7 @@
     <Compile Include="Database\Columns.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\ExtensionMethods.cs" />
+    <Compile Include="Scripts\DirectShow.cs" />
     <Compile Include="Scripts\PrintHelper.cs" />
     <Compile Include="Scripts\ResourceDictionaryEvents.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
