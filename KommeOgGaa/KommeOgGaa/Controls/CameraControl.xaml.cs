@@ -126,7 +126,7 @@ namespace KommeOgGaa.Controls
 
         public void Start()
         {
-            //Stop();
+            Stop();
 
             //if (CurrentCamera == null)
             //{
@@ -161,9 +161,14 @@ namespace KommeOgGaa.Controls
             //    _frameSource.Camera.Dispose();
             //    SetFrameSource(null);
             //}
-            
+
             //ShowPreviewImage = false;
             //_previewImage = null;
+
+
+            viewVideo.Visibility = Visibility.Visible;
+            viewImage.Visibility = Visibility.Collapsed;
+            ShowPreviewImage = false;
         }
 
         public void SavePicture()
@@ -189,8 +194,8 @@ namespace KommeOgGaa.Controls
             //    return;
 
 
-            //DoubleAnimation fade = new DoubleAnimation(1, 0, new Duration(new TimeSpan(0, 0, 0, 0, 250)));
-            //overlay.BeginAnimation(Grid.OpacityProperty, fade);
+            DoubleAnimation fade = new DoubleAnimation(1, 0, new Duration(new TimeSpan(0, 0, 0, 0, 250)));
+            overlay.BeginAnimation(Grid.OpacityProperty, fade);
 
             //try
             //{
@@ -210,7 +215,14 @@ namespace KommeOgGaa.Controls
             //}
 
         }
+        private void Image_OnPreview(BitmapImage bmp)
+        {
 
+            viewImage.Source = bmp;
+            viewVideo.Visibility = Visibility.Collapsed;
+            viewImage.Visibility = Visibility.Visible;
+            ShowPreviewImage = true;
+        }
 
 
         private BitmapImage BitmapToImageSource(Bitmap bitmap)
@@ -280,11 +292,14 @@ namespace KommeOgGaa.Controls
         private void Button_Retake_Click(object sender, RoutedEventArgs e)
         {
             _previewImage = null;
+
+            viewVideo.Visibility = Visibility.Visible;
+            viewImage.Visibility = Visibility.Collapsed;
             ShowPreviewImage = false;
         }
 
 
-
+        
 
 
         #endregion
@@ -331,11 +346,7 @@ namespace KommeOgGaa.Controls
             var height = header.BmiHeader.Height;
             var stride = width * (header.BmiHeader.BitCount / 8);
             callback = new SampleGrabberCallback() { Width = width, Height = height, Stride = stride };
-            callback.callback = (bmp) => {
-                viewImage.Source = bmp;
-                viewVideo.Visibility = Visibility.Collapsed;
-                viewImage.Visibility = Visibility.Visible;
-            };
+            callback.callback = Image_OnPreview;
             retVal = ((ISampleGrabber)grabber).SetCallback(callback, 0);
 
             retVal = graph.AddFilter(grabber, "SampleGrabber");
