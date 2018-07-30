@@ -120,6 +120,8 @@ namespace KommeOgGaa.Controls
             InitializeComponent();
             Application.Current.Exit += (o, e) => { Stop(); };
             Loaded += (o, e) => CaptureVideo();
+            
+
         }
 
         public void Start()
@@ -182,10 +184,7 @@ namespace KommeOgGaa.Controls
         public void TakePicture()
         {
             callback?.Trigger?.Set();
-            viewImage.Source = callback.SourceImage;
-
-            viewVideo.Visibility = Visibility.Collapsed;
-            viewImage.Visibility = Visibility.Visible;
+            
             //if (_frameSource == null || !isReady)
             //    return;
 
@@ -332,6 +331,11 @@ namespace KommeOgGaa.Controls
             var height = header.BmiHeader.Height;
             var stride = width * (header.BmiHeader.BitCount / 8);
             callback = new SampleGrabberCallback() { Width = width, Height = height, Stride = stride };
+            callback.callback = (bmp) => {
+                viewImage.Source = bmp;
+                viewVideo.Visibility = Visibility.Collapsed;
+                viewImage.Visibility = Visibility.Visible;
+            };
             retVal = ((ISampleGrabber)grabber).SetCallback(callback, 0);
 
             retVal = graph.AddFilter(grabber, "SampleGrabber");
@@ -412,7 +416,7 @@ namespace KommeOgGaa.Controls
 
         class SampleGrabberCallback : ISampleGrabberCB
         {
-            public BitmapImage SourceImage { get; set; }
+            public Action<BitmapImage> callback;
             public int Width { get; set; }
             public int Height { get; set; }
             public int Stride { get; set; }
@@ -440,7 +444,7 @@ namespace KommeOgGaa.Controls
                             using (var bmp = new Bitmap(Width, Height, Stride, System.Drawing.Imaging.PixelFormat.Format24bppRgb, buf))
                             {
                                 bmp.RotateFlip(RotateFlipType.Rotate180FlipX);
-                                SourceImage = BitmapToImageSource(bmp);
+                                callback?.Invoke(BitmapToImageSource(bmp));
                                 //using (var ms = new MemoryStream())
                                 //{
                                 //    //bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
