@@ -15,8 +15,7 @@
         </Grid.RowDefinitions>
         <Border Background="LightGray">
             <!--<Image x:Name="viewImage" Visibility="Visible" Grid.Row="0" />-->
-
-            <WindowsFormsHost Grid.Column="0">
+            <WindowsFormsHost Grid.Column="0" Height="{Binding ElementName=overlay, Path=ActualHeight}" Width="{Binding ElementName=overlay, Path=ActualHeight}">
                 <wf:Panel x:Name="PART_VideoPanel"/>
             </WindowsFormsHost>
         </Border>
