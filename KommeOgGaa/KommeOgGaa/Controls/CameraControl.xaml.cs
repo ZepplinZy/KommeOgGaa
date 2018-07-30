@@ -239,6 +239,18 @@ namespace KommeOgGaa.Controls
 
         #region Events
 
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (graph != null)
+            {
+                var panel = FindName("PART_VideoPanel") as System.Windows.Forms.Panel;
+                IVideoWindow window = (IVideoWindow)graph;
+                var retVal = window.SetWindowPosition(0, 0, (int)panel.ClientSize.Width, (int)panel.ClientSize.Height);
+            }
+        }
+
+
         public void OnImageCaptured(Touchless.Vision.Contracts.IFrameSource frameSource, Touchless.Vision.Contracts.Frame frame, double fps)
         {
             //if (_previewImage == null)
