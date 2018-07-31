@@ -161,7 +161,7 @@ namespace KommeOgGaa
                     }
                 }
 
-                System.Windows.MessageBox.Show("Ikke alle billeder er blevet slettet.\n Tjek " + logFile + " for mere info.", "Billeder Ikke Slettet!", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                System.Windows.Forms.MessageBox.Show("Ikke alle billeder er blevet slettet.\n Tjek " + logFile + " for mere info.", "Billeder Ikke Slettet!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
         }
     }

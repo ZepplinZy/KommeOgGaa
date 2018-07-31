@@ -16,6 +16,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using Microsoft.Win32;
 using System.Printing;
+using System.Runtime.InteropServices;
 
 namespace KommeOgGaa
 {
@@ -57,7 +58,7 @@ namespace KommeOgGaa
 
             
         }
-        
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -208,14 +209,16 @@ namespace KommeOgGaa
 
             if (CameraView.IsCheckIn && DateTime.Now.Ticks > time.Ticks)
             {
-                MessageBox.Show("Du er forsent til at tjekke dig ind.\nKontakt din lærer for mere information.", "Ikke Tjekket Ind", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.Forms.MessageBox.Show("Du er forsent til at tjekke dig ind.\nKontakt din lærer for mere information.", "Ikke Tjekket Ind", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                File.Delete(Directory.GetCurrentDirectory()+ picturesLocation);
                 return;
             }
             else if (!CameraView.IsCheckIn && DateTime.Now.Ticks < time.Ticks)
             {
-                MessageBox.Show("Du er for tidligt til at tjekke dig ud.\nKontakt din lærer for mere information.", "Ikke Tjekket Ud", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.Forms.MessageBox.Show("Du er for tidligt til at tjekke dig ud.\nKontakt din lærer for mere information.", "Ikke Tjekket Ud", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                File.Delete(Directory.GetCurrentDirectory() + picturesLocation);
                 return;
-
+                
             }
 
 
@@ -291,11 +294,12 @@ namespace KommeOgGaa
             if (SQLite_DB_LIB.Database.Exist("Admins", new string[] { "Username", "Password" }, new object[] { txtAdminUser.Text, txtAdminPass.Password }))
             {
                 IsAdmin = true;
-                MessageBox.Show("Du er nu logget ind som admin", "Admin Login", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.Forms.MessageBox.Show("Du er nu logget ind som admin", "Admin Login", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+                
             }
             else
             {
-                MessageBox.Show("Login er forkert", "Admin Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.Forms.MessageBox.Show("Login er forkert", "Admin Login", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
             MenuHomeBtn.IsChecked = IsAdmin;
         }
@@ -318,7 +322,7 @@ namespace KommeOgGaa
 
             UpdateSettingInView();
 
-            MessageBox.Show("Indstillingerne er nu gemt.", "Gemt", MessageBoxButton.OK, MessageBoxImage.Information);
+           System.Windows.Forms.MessageBox.Show("Indstillingerne er nu gemt.", "Gemt", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
         }
 
         private void UpdateSettingInView()

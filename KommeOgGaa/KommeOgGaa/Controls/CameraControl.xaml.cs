@@ -272,6 +272,12 @@ namespace KommeOgGaa.Controls
             retVal = capture.SetFiltergraph(graph);
 
             Dictionary<string, IMoniker> devices = EnumDevices(Clsid.VideoInputDeviceCategory);
+
+            if (devices.Count == 0)
+            {
+                return;
+            }
+
             IMoniker moniker = devices.First().Value;
             object obj = null;
             moniker.BindToObject(null, null, typeof(IBaseFilter).GUID, out obj);
@@ -339,19 +345,31 @@ namespace KommeOgGaa.Controls
 
             IMoniker[] monikers = new IMoniker[1];
             IntPtr ptr = IntPtr.Zero;
-            while (enumMoniker.Next(1, monikers, ptr) == 0)
+
+            try
             {
-                object obj;
-                monikers[0].BindToStorage(null, null, typeof(IPropertyBag).GUID, out obj);
-                IPropertyBag props = (IPropertyBag)obj;
+                while (enumMoniker.Next(1, monikers, ptr) == 0)
+                {
+                    object obj;
+                    monikers[0].BindToStorage(null, null, typeof(IPropertyBag).GUID, out obj);
+                    IPropertyBag props = (IPropertyBag)obj;
 
-                object friendlyName = null;
-                object description = null;
-                props.Read("FriendlyName", ref friendlyName, null);
-                props.Read("Description", ref description, null);
+                    object friendlyName = null;
+                    object description = null;
+                    props.Read("FriendlyName", ref friendlyName, null);
+                    props.Read("Description", ref description, null);
 
-                results.Add((string)friendlyName, monikers[0]);
+                    results.Add((string)friendlyName, monikers[0]);
+                }
             }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show("Der kunne ikke findes et kamera.", "Ikke noget kamera", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                
+
+
+            }
+            
 
             return results;
         }
