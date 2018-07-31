@@ -13,16 +13,21 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*" MinHeight="50" MaxHeight="100"/>
         </Grid.RowDefinitions>
-        <Border Background="LightGray">
+        <Border Background="LightGray" x:Name="UseME">
             <Grid>
+                <!--<Grid Background="Red"
+                      
+                       Height="{Binding ElementName=UseME, Path=ActualHeight}" 
+                       Width="{Binding ElementName=UseME, Path=ActualHeight, Converter={StaticResource ProcentConvert}, ConverterParameter='1.5'}"/>-->
+                
                 <Image x:Name="viewImage" Visibility="Collapsed" Grid.Row="0"
                        Stretch="Fill"
-                       Height="{Binding ElementName=overlay, Path=ActualHeight}" 
-                       Width="{Binding ElementName=overlay, Path=ActualHeight, Converter={StaticResource ProcentConvert}, ConverterParameter='1.2'}" />
+                       Height="{Binding ElementName=UseME, Path=ActualHeight}" 
+                       Width="{Binding ElementName=UseME, Path=ActualHeight, Converter={StaticResource ProcentConvert}, ConverterParameter='1.5'}" />
                 
-                <WindowsFormsHost x:Name="viewVideo" Grid.Column="0" 
-                                  Height="{Binding ElementName=overlay, Path=ActualHeight}" 
-                                  Width="{Binding ElementName=overlay, Path=ActualHeight, Converter={StaticResource ProcentConvert}, ConverterParameter='1.2'}"
+                <WindowsFormsHost x:Name="viewVideo" Grid.Column="0" Visibility="Visible"
+                                  Height="{Binding ElementName=UseME, Path=ActualHeight}" 
+                                  Width="{Binding ElementName=UseME, Path=ActualHeight, Converter={StaticResource ProcentConvert}, ConverterParameter='1.5'}"
                                 SizeChanged="Window_SizeChanged">
                     <wf:Panel x:Name="PART_VideoPanel"/>
                 </WindowsFormsHost>

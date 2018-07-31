@@ -13,7 +13,9 @@ namespace KommeOgGaa.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double val = System.Convert.ToDouble(value);
-            double procent = System.Convert.ToDouble(parameter);
+            double procent = System.Convert.ToDouble(parameter, culture.NumberFormat);
+            
+            System.Diagnostics.Debug.WriteLine("D: " + (val * procent));
 
             return val * procent;
         }
