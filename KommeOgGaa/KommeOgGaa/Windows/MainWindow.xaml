@@ -80,9 +80,9 @@
                     <Label Content="Klasser:" Panel.ZIndex="100" Background="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 -28 0 0" FontSize="13" FontWeight="Bold"/>
                     
                     <StackPanel Orientation="Horizontal" Margin="-1" x:Name="personCategories">
-                        <RadioButton Cursor="Hand" x:Name="rBtnCategoryA" Template="{StaticResource MenuRadioButtonTemplate}" Content="A" Background="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}}" Foreground="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuForegroundConverter}}" FontSize="25" FontWeight="Bold" Padding="14 3" Margin="0" IsChecked="True"/>
-                        <RadioButton Cursor="Hand" x:Name="rBtnCategoryB" Template="{StaticResource MenuRadioButtonTemplate}" Content="B" Background="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}}" Foreground="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuForegroundConverter}}" FontSize="25" FontWeight="Bold" Padding="14 3" Margin="0" />
-                        <RadioButton Cursor="Hand" x:Name="rBtnCategoryC" Template="{StaticResource MenuRadioButtonTemplate}" Content="C" Background="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}}" Foreground="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuForegroundConverter}}" FontSize="25" FontWeight="Bold" Padding="14 3" Margin="0" />
+                        <RadioButton Cursor="Hand" x:Name="rBtnCategoryA" Template="{StaticResource MenuRadioButtonTemplate}" Content="A" Background="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}}" Foreground="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuForegroundConverter}}" FontSize="25" FontWeight="Bold" Padding="14 3" Margin="0" IsChecked="True" Checked="rBtnCategory_Checked"/>
+                        <RadioButton Cursor="Hand" x:Name="rBtnCategoryB" Template="{StaticResource MenuRadioButtonTemplate}" Content="B" Background="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}}" Foreground="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuForegroundConverter}}" FontSize="25" FontWeight="Bold" Padding="14 3" Margin="0" Checked="rBtnCategory_Checked"/>
+                        <RadioButton Cursor="Hand" x:Name="rBtnCategoryC" Template="{StaticResource MenuRadioButtonTemplate}" Content="C" Background="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuBackgroundConverter}}" Foreground="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked, Converter={StaticResource MenuForegroundConverter}}" FontSize="25" FontWeight="Bold" Padding="14 3" Margin="0" Checked="rBtnCategory_Checked"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -94,7 +94,7 @@
 
             <!-- Tjekket ind-->
             <Grid Visibility="{Binding ElementName=MenuHomeBtn, Path=IsChecked, Converter={StaticResource BoolToVisibillityConverter}}">
-                <ListView x:Name="PictureList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                <ListView x:Name="PictureList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsVisibleChanged="PictureList_IsVisibleChanged"
                       MouseUp="PictureList_MouseUp" SelectionChanged="PictureList_SelectionChanged">
 
                     <ListView.ItemTemplate>

@@ -50,6 +50,7 @@ namespace KommeOgGaa
             InitializeComponent();
             PictureList.ItemsSource = todayList;
             Gallery.ItemsSource = galleryList;
+            
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(Gallery.ItemsSource);
             view.SortDescriptions.Add(new System.ComponentModel.SortDescription("Date", System.ComponentModel.ListSortDirection.Ascending));
@@ -86,6 +87,7 @@ namespace KommeOgGaa
                 todayList.Add(item);
             }
 
+            UpdateTodayList();
         }
 
         private static void LoadSettings()
@@ -141,6 +143,22 @@ namespace KommeOgGaa
 
             //SQLite_DB_LIB.Database.Insert("Admins", new string[] { "Username", "Password" }, new object[] { "", "" });
 
+        }
+
+        private void UpdateTodayList()
+        {
+            if (PictureList == null)
+            {
+                return;
+            }
+
+            string selectedCat = "";
+
+            if (rBtnCategoryA.IsChecked ?? false) selectedCat = rBtnCategoryA.Content.ToString();
+            else if (rBtnCategoryB.IsChecked ?? false) selectedCat = rBtnCategoryB.Content.ToString();
+            else if (rBtnCategoryC.IsChecked ?? false) selectedCat = rBtnCategoryC.Content.ToString();
+
+            PictureList.ItemsSource = todayList.Where(m => m.Category == selectedCat);
         }
 
         private void PictureList_MouseUp(object sender, MouseButtonEventArgs e)
@@ -348,6 +366,21 @@ namespace KommeOgGaa
             var fv = Scripts.PrintHelper.GetFixedDocument(Gallery, new PrintDialog());
             Scripts.PrintHelper.ShowPrintPreview(fv);
         }
-        
+
+        private void rBtnCategory_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((sender as RadioButton).IsChecked ?? false)
+            {
+                UpdateTodayList();
+            }
+        }
+
+        private void PictureList_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+                UpdateTodayList();
+            }
+        }
     }
 }

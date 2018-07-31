@@ -137,6 +137,7 @@
     <Compile Include="Controls\PlaceholderBox.cs" />
     <Compile Include="Converters\BoolToValueConverter.cs" />
     <Compile Include="Converters\CategoryChangeConverter.cs" />
+    <Compile Include="Converters\ProcentConverter.cs" />
     <Compile Include="Converters\RingButtonConverter.cs" />
     <Compile Include="Converters\TicksTimeConverter.cs" />
     <Compile Include="Converters\ValueToThicknessConverter.cs" />

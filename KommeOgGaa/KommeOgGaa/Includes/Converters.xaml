@@ -31,5 +31,6 @@
     <Converters:CategoryChangeConverter  x:Key="CheckInVisibillityConverter" />
 
     <Converters:ValueToThicknessConverter x:Key="ValueToThicknessConvert"/>
+    <Converters:ProcentConverter x:Key="ProcentConvert"/>
 
 </ResourceDictionary>

@@ -15,8 +15,14 @@
         </Grid.RowDefinitions>
         <Border Background="LightGray">
             <Grid>
-                <Image x:Name="viewImage" Visibility="Collapsed" Grid.Row="0" />
-                <WindowsFormsHost x:Name="viewVideo" Grid.Column="0" Height="{Binding ElementName=overlay, Path=ActualHeight}" Width="{Binding ElementName=overlay, Path=ActualHeight}"
+                <Image x:Name="viewImage" Visibility="Collapsed" Grid.Row="0"
+                       Stretch="Fill"
+                       Height="{Binding ElementName=overlay, Path=ActualHeight}" 
+                       Width="{Binding ElementName=overlay, Path=ActualHeight, Converter={StaticResource ProcentConvert}, ConverterParameter='1.2'}" />
+                
+                <WindowsFormsHost x:Name="viewVideo" Grid.Column="0" 
+                                  Height="{Binding ElementName=overlay, Path=ActualHeight}" 
+                                  Width="{Binding ElementName=overlay, Path=ActualHeight, Converter={StaticResource ProcentConvert}, ConverterParameter='1.2'}"
                                 SizeChanged="Window_SizeChanged">
                     <wf:Panel x:Name="PART_VideoPanel"/>
                 </WindowsFormsHost>
