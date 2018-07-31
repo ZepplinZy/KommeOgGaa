@@ -178,6 +178,7 @@ namespace KommeOgGaa
             imageGrid.Visibility = Visibility.Collapsed;
             PictureList.Visibility = Visibility.Visible;
             PictureList.SelectedIndex = -1;
+            UpdateTodayList();
         }
 
         private void PictureList_SelectionChanged(object sender, SelectionChangedEventArgs e)
