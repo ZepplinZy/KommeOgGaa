@@ -8,7 +8,7 @@
         mc:Ignorable="d" x:Name="window"
         Loaded="Window_Loaded"
         
-        Title="MainWindow" Height="670" Width="1000" MouseDown="Window_MouseDown">
+        Title="MainWindow" Height="670" Width="1000" MouseDown="Window_MouseDown" Icon="/KommeOgGaa;component/Picrues/icon.ico">
     
     <Window.Resources>
         <Image x:Key="TakePictureImage" Source="/KommeOgGaa;component/Picrues/CameraIMG.png" Stretch="UniformToFill"   />

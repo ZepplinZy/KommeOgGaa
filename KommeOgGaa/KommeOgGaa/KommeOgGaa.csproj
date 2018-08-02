@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Picrues\icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -201,6 +204,7 @@
     <Content Include="Lib\Touchless.Vision.dll" />
     <Content Include="Lib\WebCamLib.dll" />
     <Content Include="Lib\WebCam_Capture.dll" />
+    <Resource Include="Picrues\icon.ico" />
     <Resource Include="Picrues\ImageNotFound.png" />
     <Resource Include="Picrues\LogOut.png" />
     <Resource Include="Picrues\LogIn.png" />
