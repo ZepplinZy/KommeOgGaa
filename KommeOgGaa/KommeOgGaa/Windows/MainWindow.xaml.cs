@@ -313,6 +313,8 @@ namespace KommeOgGaa
             if (SQLite_DB_LIB.Database.Exist("Admins", new string[] { "Username", "Password" }, new object[] { txtAdminUser.Text, txtAdminPass.Password }))
             {
                 IsAdmin = true;
+                txtAdminUser.Text = "";
+                txtAdminPass.Password = "";
                 System.Windows.Forms.MessageBox.Show("Du er nu logget ind som admin", "Admin Login", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
                 
             }
